@@ -9,16 +9,16 @@ import Signin from "../screens/signin";
 import Signup from "../screens/signup";
 
 
-const Stack = createStackNavigator();
+// importing react native navigations
+import { NativeRouter, Route, Link } from "react-router-native";
 
 
-export default function Navigation(){
-    return(
-        <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Signup" component={Signup} />
-          <Stack.Screen name="Signin" component={Signin} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    )
+
+export default function Navigation() {
+  return (
+    <NativeRouter>
+      <Route exact path="/" component={Signin} />
+      <Route path="/signup" component={Signup} />
+    </NativeRouter>
+  )
 }

@@ -7,10 +7,9 @@ import Navigation from "./config/navigation";
 
 
 
-
 function App() {
   return (
-    <Navigation/>
+    <Navigation />
   );
 }
 

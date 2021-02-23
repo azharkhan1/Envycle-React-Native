@@ -1,4 +1,5 @@
-import React, { useRef, useState, createRef } from 'react';
+import React, { useRef, useState, createRef, } from 'react';
+
 import {
 
     StyleSheet,
@@ -8,6 +9,11 @@ import {
     TextInput,
 
 } from 'react-native';
+
+import { NativeRouter, Route, Link } from "react-router-native";
+
+
+
 import { Card } from "react-native-elements";
 
 
@@ -17,6 +23,13 @@ export default function Signup() {
         <View style={styles.container}>
             <View style={styles.input_container}>
                 <Card>
+                    <Link
+                        to="/"
+                        underlayColor="#f0f4f7"
+                        style={styles.navItem}
+                    >
+                        <Text>Signin</Text>
+                    </Link>
                     <Card.Title>Signup</Card.Title>
                     <TextInput
                         style={styles.input}
@@ -40,36 +53,13 @@ export default function Signup() {
                         <Text style={styles.text}>Signup</Text>
                     </TouchableOpacity>
                 </Card>
+
             </View>
         </View>
 
     );
-} function Sigin() {
-    return (
-        <>
-            <View style={styles.container}>
-                <View style={styles.input_container}>
-                    <Card>
-                        <Card.Title>Login</Card.Title>
-                        <TextInput
-                            style={styles.input}
-                            type="email" placeholder={'Enter your email'}
-                        />
-                        <Card.Divider />
-                        <TextInput
-                            style={styles.input}
-                            placeholder={"Enter your password"}
-                        />
-                        <TouchableOpacity style={styles.button}>
-                            <Text style={styles.text}>Login</Text>
-                        </TouchableOpacity>
-                    </Card>
-                </View>
-            </View>
-
-        </>
-    );
 }
+
 
 const styles = StyleSheet.create({
 
