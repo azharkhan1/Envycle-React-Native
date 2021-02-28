@@ -1,3 +1,2 @@
-const URL = "http://envycle.herokuapp.com";
-
+const URL = "https://envycle.herokuapp.com";
 export default URL;

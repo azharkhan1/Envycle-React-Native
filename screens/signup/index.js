@@ -1,23 +1,60 @@
 import React, { useRef, useState, createRef, } from 'react';
 
 import {
-
     StyleSheet,
     View,
     Text,
     TouchableOpacity,
     TextInput,
-
 } from 'react-native';
-
 import { NativeRouter, Route, Link } from "react-router-native";
-
 
 
 import { Card } from "react-native-elements";
 
+import URL from '../../core/index';
+
+import axios from "axios";
+
 
 export default function Signup() {
+    const [name, setName] = useState();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [message, setMessage] = useState('Signup');
+
+    const handleEmail = (e) => {
+        setEmail(e);
+
+    }
+    const handleName = (e) => {
+        setName(e);
+    }
+    const handlePassword = (e) => {
+        setPassword(e);
+    }
+
+    const getStarted = () => {
+        console.log({ email, name, URL });
+        axios({
+            method: 'post',
+            url: URL + "/auth/signup",
+            data: {
+                userName: name,
+                userEmail: email.toLowerCase(),
+                userPassword: password,
+                gender: "male",
+            },
+        }).then((response) => {
+            console.log("response", response);
+            setMessage('Signed up successfully');
+        }, (error) => {
+            console.log('error is=>', error);
+            setMessage(error.response.data.message)
+        })
+    }
+
+
     return (
 
         <View style={styles.container}>
@@ -30,26 +67,27 @@ export default function Signup() {
                     >
                         <Text>Signin</Text>
                     </Link>
-                    <Card.Title>Signup</Card.Title>
+                    <Card.Title>{message}</Card.Title>
                     <TextInput
                         style={styles.input}
-                        type="email" placeholder={'Enter your email'}
+                        placeholder={'Enter your Name'}
+                        onChangeText={(e) => handleName(e)}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder={'Enter your email'}
+                        onChangeText={(e) => handleEmail(e)}
                     />
                     <Card.Divider />
                     <TextInput
                         style={styles.input}
                         placeholder={"Enter your password"}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        type="email" placeholder={'Enter your Address'}
+                        onChangeText={(e) => handlePassword(e)}
                     />
                     <Card.Divider />
-                    <TextInput
-                        style={styles.input}
-                        placeholder={"Enter your Phone No"}
-                    />
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={styles.button}
+                        onPress={() => getStarted()}
+                    >
                         <Text style={styles.text}>Signup</Text>
                     </TouchableOpacity>
                 </Card>

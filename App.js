@@ -1,6 +1,6 @@
 import * as React from "react";
 import Navigation from "./config/navigation";
-
+import {GlobalStateProvider} from "./context/context.js";
 
 
 
@@ -9,7 +9,10 @@ import Navigation from "./config/navigation";
 
 function App() {
   return (
-    <Navigation />
+
+    <GlobalStateProvider><Navigation /></GlobalStateProvider>
+
+
   );
 }
 

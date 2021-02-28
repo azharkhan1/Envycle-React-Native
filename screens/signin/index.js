@@ -13,36 +13,41 @@ import axios from "axios";
 import URL from "../../core";
 
 
+
 // Importing React Router Native
 
 import { Link } from "react-router-native";
 
 
-
 export default function Signin() {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
+  const [message, setMessage] = useState('Sign In');
 
-  // const signupNow = () => {
-  //   // console.log(email,password);
-  //   axios({
-  //     method: "post",
-  //     url: `${URL}/auth/login`,
-  //     data: {
-  //       userEmail: email,
-  //       userPassword: password
-  //     }
-  //   }).then((response) => {
-  //     console.log('This is response=>', response.data);
-  //   }).catch((err) => { throw err })
-  // }
+  const signInNow = () => {
+    console.log('function is running', email, password);
+    axios({
+      method: "post",
+      url: `${URL}/auth/login`,
+      data: {
+        userEmail: email.toLowerCase(),
+        userPassword: password
+      }
+    }).then((response) => {
+      console.log('This is response=>', response.data);
+      setMessage('Logged in');
+    }).catch((err) => {
+      setMessage('failed');
+    })
+
+  }
 
   return (
 
     <View style={styles.container}>
       <View style={styles.input_container}>
-        <Card>
-          <Card.Title>Login</Card.Title>
+        <Card containerStyle={styles.card}>
+          <Card.Title>{message}</Card.Title>
           <TextInput
             style={styles.input}
             type="email" placeholder={'Enter your email'}
@@ -55,8 +60,7 @@ export default function Signin() {
             onChangeText={(e) => setPassword(e)}
           />
           <TouchableOpacity style={styles.button}
-          
-
+            onPress={() => signInNow()}
           >
             <Text style={styles.text}>Login</Text>
           </TouchableOpacity>
@@ -87,7 +91,7 @@ const styles = StyleSheet.create({
   container: {
     display: "flex", justifyContent: "center", flex: 1, alignItems: "center",
     color: "white",
-    backgroundColor: "#014732"
+    backgroundColor: "#0f893b"
   },
 
   button: {
@@ -102,11 +106,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 20,
     alignSelf: "center",
+    borderRadius: 4,
+
   },
   text: {
     color: "white",
     fontSize: 16,
   },
+  card: {
+    borderRadius: 10,
+    display: "flex",
+    padding: 40,
+    shadowOpacity: 0.48,
+    shadowRadius: 11.95,
+    elevation: 18,
+  }
 
 
 })

@@ -12,11 +12,20 @@ import Signup from "../screens/signup";
 // importing react native navigations
 import { NativeRouter, Route, Link } from "react-router-native";
 
+import {useGlobalState} from "../context/context";
 
+
+import {
+  Text
+} from "react-native";
 
 export default function Navigation() {
+  const globalState  = useGlobalState();
   return (
     <NativeRouter>
+      <Text>
+      {JSON.stringify(globalState)}
+      </Text>
       <Route exact path="/" component={Signin} />
       <Route path="/signup" component={Signup} />
     </NativeRouter>
