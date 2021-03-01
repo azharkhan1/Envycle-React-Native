@@ -9,10 +9,7 @@ import {GlobalStateProvider} from "./context/context.js";
 
 function App() {
   return (
-
     <GlobalStateProvider><Navigation /></GlobalStateProvider>
-
-
   );
 }
 

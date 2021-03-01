@@ -30,7 +30,7 @@ export function GlobalStateProvider({ children }) {
             method: 'get',
             url: url + "/profile",
         }).then((response) => {
-                setData(prev => ({ ...prev, loginStatus: true , user : response.data.profile , role : response.data.profile.role }));
+            setData(prev => ({ ...prev, loginStatus: true , user : response.data.profile , role : response.data.profile.role }));
         }, (error) => {
             setData(prev => ({ ...prev, loginStatus: false }))
         });

@@ -18,11 +18,13 @@ import URL from "../../core";
 
 import { Link } from "react-router-native";
 
+import { useGlobalState, useGlobalStateUpdate } from "../../context/context";
 
 export default function Signin() {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
   const [message, setMessage] = useState('Sign In');
+  const globalStateUpdate = useGlobalStateUpdate();
 
   const signInNow = () => {
     console.log('function is running', email, password);
@@ -34,6 +36,7 @@ export default function Signin() {
         userPassword: password
       }
     }).then((response) => {
+      globalStateUpdate((prevValue) => ({ ...prevValue, loginStatus: true }))
       console.log('This is response=>', response.data);
       setMessage('Logged in');
     }).catch((err) => {
