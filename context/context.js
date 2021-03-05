@@ -1,4 +1,4 @@
-import React, { useContext, useState , useEffect  } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import url from "../core";
 
@@ -21,22 +21,24 @@ export function GlobalStateProvider({ children }) {
     const [data, setData] = useState({
         user: null,
         loginStatus: false,
-        role : null,
+        role: null,
+        cart: [],
     })
 
     useEffect(() => {
-        console.log('url is=> ' ,url);
+
         axios({
             method: 'get',
             url: url + "/profile",
         }).then((response) => {
-            setData(prev => ({ ...prev, loginStatus: true , user : response.data.profile , role : response.data.profile.role }));
+            setData(prev => ({ ...prev, loginStatus: true, user: response.data.profile, role: response.data.profile.role }));
+
         }, (error) => {
             setData(prev => ({ ...prev, loginStatus: false }))
         });
-    } , [] );
-  
-    
+    }, [data]);
+
+
 
     return (
         <GlobalStateContext.Provider value={data}>
@@ -45,4 +47,4 @@ export function GlobalStateProvider({ children }) {
             </GlobalStateUpdateContext.Provider>
         </GlobalStateContext.Provider>
     )
-} 
+}
