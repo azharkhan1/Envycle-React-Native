@@ -11,6 +11,8 @@ import { Container, Spinner, Thumbnail, Form, Item, Input, Label, Textarea, Cont
 import axios from 'axios'
 import url from "../core/index";
 import { Formik } from 'formik';
+import * as Yup from 'yup';
+
 import { useGlobalState, useGlobalStateUpdate } from '../context/context';
 
 
@@ -40,14 +42,15 @@ export default function Materials() {
         })
     }, []);
 
-    // const addMaterial = (index) => {
-    //     var old_materials = [...materials];
-    //     old_materials[index].added = true,
-    //         setMaterials(old_materials);
-    //     console.log('selected material ', materials[index]);
-    //     globalStateUpdate((prevValue) => ({ ...prevValue, cart: [...globalState.cart, materials[index]], role: 'haha' }));
-    //     // globalStateUpdate((prevValue) => ({ ...prevValue, loginStatus: false }))
-    // }
+    const placeRequestSchema = Yup.object().shape({
+        address: Yup.string()
+            .min(2, 'Too Short!')
+            .max(50, 'Too Long!')
+            .required('Required'),
+        phoneNo: Yup.string()
+            .required('Required'),
+    });
+
 
 
     function addQty(index) {
@@ -62,6 +65,10 @@ export default function Materials() {
         console.log('materisl=>', materials[index]);
         setMaterials(prevMaterials);
     }
+    const placeRequest = (values) => {
+        console.log('values are after form ', values.address);
+    }
+
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -80,9 +87,7 @@ export default function Materials() {
                                                 style={{ height: 24, width: 24, }}
                                             >
                                                 <Text style={{ color: 'white', fontSize: 18 }}></Text >
-
                                             </ImageBackground>
-
                                         </TouchableOpacity>
                                         <TouchableOpacity style={styles.myButton} onPress={quantity > 0 ? () => removeQty(index) : () => { return }}>
                                             <ImageBackground
@@ -112,27 +117,55 @@ export default function Materials() {
                     >
                         <View style={styles.wholeScreen}>
                             <View style={styles.modalCard}>
-                                <Form>
-                                    <Item stackedLabel>
-                                        <Label>Address</Label>
-                                        <Input />
-                                    </Item>
-                                    <Item stackedLabel last>
-                                        <Label>Phone Number</Label>
-                                        <Input />
-                                    </Item>
-                                    <Textarea rowSpan={4} style={{ width: '100%', marginBottom: 10 }} bordered placeholder=" Enter your message" />
-                                    <TouchableOpacity style={styles.closeBtn} onPress={() => setModalVisible(!modalVisible)}>
-                                        <Text style={{ color: 'white', fontSize: 18 }}>Close</Text >
-                                    </TouchableOpacity>
-
-                                </Form>
-                                <Pressable
-                                    style={[styles.button, styles.buttonClose]}
-                                    onPress={() => setModalVisible(!modalVisible)}
+                                <Formik
+                                    validationSchema={placeRequestSchema}
+                                    initialValues={{ address: '', remarks: '', phoneNo: '' }}
+                                    onSubmit={values => placeRequest(values)}
                                 >
-                                    <Text style={styles.textStyle}>Place Request</Text>
-                                </Pressable>
+                                    {({ handleChange, handleBlur, handleSubmit, values, errors, isValid }) => (
+                                        <View>
+                                            <Item stackedLabel>
+                                                <Label>Address</Label>
+                                                {errors.address &&
+                                                    <Text style={{ fontSize: 10, color: 'red' }}>{errors.address}</Text>
+                                                }
+                                                <Input
+                                                    onChangeText={handleChange('address')}
+                                                    onBlur={handleBlur('address')}
+                                                    value={values.address}
+                                                />
+                                            </Item>
+                                            <Item stackedLabel last>
+                                                <Label>Phone Number</Label>
+                                                {errors.phoneNo &&
+                                                    <Text style={{ fontSize: 10, color: 'red' }}>{errors.phoneNo}</Text>
+                                                }
+                                                <Input
+                                                    onChangeText={handleChange('phoneNo')}
+                                                    onBlur={handleBlur('phoneNo')}
+                                                    value={values.phoneNo}
+                                                />
+                                            </Item>
+
+                                            <Textarea rowSpan={4} style={{ width: '100%', marginBottom: 10 }} bordered placeholder=" Enter your message"
+                                                onChangeText={handleChange('remarks')}
+                                                onBlur={handleBlur('remarks')}
+                                                value={values.remarks}
+
+                                            />
+                                            <TouchableOpacity style={styles.closeBtn} onPress={() => setModalVisible(!modalVisible)}>
+                                                <Text style={{ color: 'white', fontSize: 18 }}>Close</Text >
+                                            </TouchableOpacity>
+                                            <Pressable
+                                                style={[styles.button, styles.buttonClose]}
+                                                onPress={handleSubmit}
+                                            >
+                                                <Text style={styles.textStyle}>Place Request</Text>
+                                            </Pressable>
+                                        </View>
+                                    )}
+
+                                </Formik>
                             </View>
                         </View>
                     </Modal>
