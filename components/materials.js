@@ -21,9 +21,9 @@ export default function Materials() {
 
     const [loading, setLoading] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);
-
     const [materials, setMaterials] = useState();
-    const [cart, setCart] = useState([]);
+    const [total, setTotal] = useState(0);
+    const [change, setChange] = useState(true);
     const globalStateUpdate = useGlobalStateUpdate();
     const globalState = useGlobalState();
 
@@ -40,7 +40,7 @@ export default function Materials() {
         }).catch((err) => {
             setLoading(true);
         })
-    }, []);
+    }, [change]);
 
     const placeRequestSchema = Yup.object().shape({
         address: Yup.string()
@@ -56,17 +56,61 @@ export default function Materials() {
     function addQty(index) {
         var prevMaterials = [...materials];
         prevMaterials[index].quantity = prevMaterials[index].quantity + 5;
-        console.log('materisl=>', materials[index]);
         setMaterials(prevMaterials);
+        var totalQuantity = 0;
+        materials.map((value => {
+            totalQuantity += value.quantity;
+        }))
+        setTotal(totalQuantity)
+
     }
     function removeQty(index) {
         var prevMaterials = [...materials];
         prevMaterials[index].quantity = prevMaterials[index].quantity - 5;
-        console.log('materisl=>', materials[index]);
+        var sum = 0;
         setMaterials(prevMaterials);
+        var totalQuantity = 0;
+        materials.map((value => {
+            totalQuantity += value.quantity;
+        }))
+        setTotal(totalQuantity)
+
     }
-    const placeRequest = (values) => {
-        console.log('values are after form ', values.address);
+    const placeRequest = (formValue) => {
+        var { address, remarks, phoneNo } = formValue;
+        var totalQuantity = 0;
+        materials.map((value => {
+            totalQuantity += value.quantity;
+        }))
+
+        var materialToSend = materials.filter((value) => {
+            return value.quantity > 0
+        })
+
+        axios({
+            method: 'post',
+            url: `${url}/place-order`,
+            data: {
+                cart: materialToSend,
+                address: address,
+                phoneNo: phoneNo,
+                quantity: totalQuantity,
+                remarks: remarks,
+            },
+
+        }).then((response) => {
+            alert('your request has been palced');
+            materials.map((value, index) => {
+                value.quantity = 0;
+            })
+            setChange(!change);
+        }, (error) => {
+            // console.log("an error occured");
+            alert('An error occured');
+        })
+
+
+
     }
 
     return (
@@ -75,7 +119,7 @@ export default function Materials() {
                 {loading ? <Spinner /> :
                     <>
                         {materials.map(({ name, quantity, url }, index) => {
-                            return <View style={styles.cardContainer}>
+                            return <View style={styles.cardContainer} key={index}>
                                 <View style={styles.card} key={index}>
                                     <Thumbnail source={{ uri: url }}></Thumbnail>
                                     <Text>{name}</Text>
@@ -171,9 +215,9 @@ export default function Materials() {
                     </Modal>
                     <Pressable
                         style={[styles.button, styles.buttonOpen]}
-                        onPress={() => setModalVisible(true)}
+                        onPress={total >= 20 ? () => setModalVisible(true) : () => { return }}
                     >
-                        <Text style={styles.textStyle}>CheckOut</Text>
+                        <Text style={styles.textStyle}>{total >= 20 ? 'Checkout' : 'Minimum 20kg to place request'}</Text>
                     </Pressable>
                 </View>
             </ScrollView>
