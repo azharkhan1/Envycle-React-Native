@@ -84,8 +84,11 @@ export default function Materials() {
         }))
 
         var materialToSend = materials.filter((value) => {
-            return value.quantity > 0
+            if (value.quantity > 0) {
+                return value
+            }
         })
+        console.log('material to send' , materialToSend);
 
         axios({
             method: 'post',
