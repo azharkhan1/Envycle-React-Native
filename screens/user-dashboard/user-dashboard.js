@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Container, Header, Content, Tab, Tabs } from 'native-base';
-import { ScrollView, Text } from "react-native";
 import Materials from '../../components/materials';
 import MyRequests from '../../components/my-requests';
 
 const UserDashboard = () => {
   return (
-
     <Container>
       <Header hasTabs />
       <Tabs>
@@ -14,7 +12,7 @@ const UserDashboard = () => {
           <Materials />
         </Tab>
         <Tab heading={"My Requests"}>
-         <MyRequests/>
+          <MyRequests />
         </Tab>
       </Tabs>
     </Container>

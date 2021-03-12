@@ -36,7 +36,13 @@ export default function Signin() {
         userPassword: password
       }
     }).then((response) => {
-      globalStateUpdate((prevValue) => ({ ...prevValue, loginStatus: true }))
+      globalStateUpdate(prev => ({
+        ...prev, loginStatus: true, user: {
+          userEmail: response.data.user.userEmail,
+          userName: response.data.user.userName,
+          points: response.data.user.points,
+        }, role: response.data.user.role,
+      }));
       console.log('This is response=>', response.data);
       setMessage('Logged in');
     }).catch((err) => {
@@ -90,7 +96,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
     borderRadius: 3,
   },
-
   container: {
     display: "flex", justifyContent: "center", flex: 1, alignItems: "center",
     color: "white",
@@ -124,8 +129,6 @@ const styles = StyleSheet.create({
     shadowRadius: 11.95,
     elevation: 18,
   }
-
-
 })
 
 

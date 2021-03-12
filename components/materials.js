@@ -88,7 +88,7 @@ export default function Materials() {
                 return value
             }
         })
-        console.log('material to send' , materialToSend);
+        console.log('material to send', materialToSend);
 
         axios({
             method: 'post',
@@ -123,28 +123,27 @@ export default function Materials() {
                     <>
                         {materials.map(({ name, quantity, url }, index) => {
                             return <View style={styles.cardContainer} key={index}>
-                                <View style={styles.card} key={index}>
-                                    <Thumbnail source={{ uri: url }}></Thumbnail>
-                                    <Text>{name}</Text>
-                                    <Text style={styles.input}>{quantity}</Text>
-                                    <View style={{ display: 'flex', flexDirection: 'row' }}>
-                                        <TouchableOpacity style={styles.myButton} onPress={() => addQty(index)}>
-                                            <ImageBackground
-                                                source={require('../assets/images/add.png')}
-                                                style={{ height: 24, width: 24, }}
-                                            >
-                                                <Text style={{ color: 'white', fontSize: 18 }}></Text >
-                                            </ImageBackground>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity style={styles.myButton} onPress={quantity > 0 ? () => removeQty(index) : () => { return }}>
-                                            <ImageBackground
-                                                source={require('../assets/images/minus.png')}
-                                                style={{ height: 24, width: 24, position: 'relative', top: 10 }}
-                                            >
-                                            </ImageBackground>
-                                        </TouchableOpacity>
-                                    </View>
+                                <Thumbnail source={{ uri: url }}></Thumbnail>
+                                <Text>{name}</Text>
+                                <Text style={styles.input}>{quantity}</Text>
+                                <View style={{ display: 'flex', flexDirection: 'row' }}>
+                                    <TouchableOpacity style={styles.myButton} onPress={() => addQty(index)}>
+                                        <ImageBackground
+                                            source={require('../assets/images/add.png')}
+                                            style={{ height: 18, width: 18, }}
+                                        >
+                                            <Text style={{ color: 'white', fontSize: 18 }}></Text >
+                                        </ImageBackground>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={styles.myButton} onPress={quantity > 0 ? () => removeQty(index) : () => { return }}>
+                                        <ImageBackground
+                                            source={require('../assets/images/minus.png')}
+                                            style={{ height: 18, width: 18, position: 'relative', top: 8 }}
+                                        >
+                                        </ImageBackground>
+                                    </TouchableOpacity>
                                 </View>
+
                             </View>
                         })}
                     </>
@@ -230,6 +229,27 @@ export default function Materials() {
 
 const styles = new StyleSheet.create({
 
+    cardContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        flexDirection: 'row',
+        flex: 1,
+        padding: 20,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowOpacity: 0.32,
+        shadowRadius: 5.46,
+
+        elevation: 9,
+
+
+    },
+
     closeBtn: {
         width: 20,
         height: 20,
@@ -266,7 +286,7 @@ const styles = new StyleSheet.create({
         color: 'black',
     },
     myButton: {
-        width: 45,
+        width: 55,
         height: 30,
         backgroundColor: "#014732",
         color: "white",
@@ -282,27 +302,8 @@ const styles = new StyleSheet.create({
         justifyContent: 'center',
     },
 
-    card: {
-        display: 'flex',
-        backgroundColor: 'white',
-        padding: 20,
-        padding: 40,
-        shadowOpacity: 0.48,
-        shadowRadius: 11.95,
-        elevation: 18,
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        alignSelf: 'center',
-    },
-    cardContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        alignSelf: 'center',
 
-    },
+
     centeredView: {
         flex: 3,
         justifyContent: "center",

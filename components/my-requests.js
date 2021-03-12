@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, View } from "react-native"
-import { Container, Header, Content, Card, CardItem, Text, Body, Button , Left , Right } from "native-base";
+import { Container, Header, Content, Card, CardItem, Text, Body, Button, Left, Right } from "native-base";
 import { Spinner } from "native-base"
 import url from "../core/index";
 import axios from 'axios';
@@ -68,7 +68,7 @@ export default function myRequests() {
                                     </CardItem>
                                     <CardItem footer bordered>
                                         {status === 'Pending' ?
-                                            < Button onPress={()=>deleteOrder(_id) }danger><Text>Cancel Request </Text></Button>
+                                            < Button onPress={() => deleteOrder(_id)} danger><Text>Cancel Request </Text></Button>
                                             : <></>
                                         }
                                     </CardItem>
