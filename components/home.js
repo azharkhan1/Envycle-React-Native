@@ -6,7 +6,8 @@ import Footer from "../components/footer";
 export default function Home() {
     return (
         <>
-            <View style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center' , backgroundColor:'black' }}>
+      
+            <View style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center' , backgroundColor: '#00868B'}}>
                 <Card>
                     <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
                         <Card.Image containerStyle={{ width: '50%' }} source={require('../assets/images/recycle.jpg')}>

@@ -50,12 +50,13 @@ export default function MyProfile() {
         }).then((response) => {
             Cookie.clear();
             globalStateUpdate((prevValue) => ({ ...prevValue, loginStatus: false, user: null, role: null }));
+            history.push('/');
         }, (error) => {
             console.log("error=>", error);
         })
     }
     return (
-        <Container>
+        <Container style={{ backgroundColor: '#00868B', }}>
             <Header />
             <Content padder>
                 <Card>
@@ -87,6 +88,7 @@ export default function MyProfile() {
                                                 onBlur={handleBlur('oldPassword')}
                                                 value={values.oldPassword}
                                                 placeholder={'Enter your old password'}
+                                                secureTextEntry={true}
                                             />
                                         </Item>
                                         <Item stackedLabel>
@@ -98,6 +100,7 @@ export default function MyProfile() {
                                                 onBlur={handleBlur('newPassword')}
                                                 value={values.newPassword}
                                                 placeholder={'Enter your new password'}
+                                                secureTextEntry={true}
                                             />
                                         </Item>
                                         {spinner ? <Spinner /> : <Button style={{ marginTop: 20 }} onPress={handleSubmit} primary><Text> Change Password </Text></Button>}

@@ -117,7 +117,7 @@ export default function Materials() {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container] , [{height:'100%'}]}>
             <ScrollView>
                 {loading ? <Spinner /> :
                     <>
@@ -216,7 +216,7 @@ export default function Materials() {
                         </View>
                     </Modal>
                     <Pressable
-                        style={[styles.button, styles.buttonOpen]}
+                        style={[styles.button, styles.buttonClose]}
                         onPress={total >= 20 ? () => setModalVisible(true) : () => { return }}
                     >
                         <Text style={styles.textStyle}>{total >= 20 ? 'Checkout' : 'Minimum 20kg to place request'}</Text>
@@ -242,7 +242,7 @@ const styles = new StyleSheet.create({
             width: 0,
             height: 4,
         },
-        shadowOpacity: 0.32,
+        shadowOpacity: 0.20,
         shadowRadius: 5.46,
 
         elevation: 9,

@@ -5,6 +5,7 @@ import {
   View,
   Text,
   Pressable,
+  Image
 } from 'react-native';
 import { Link } from "react-router-native";
 import { Formik } from 'formik';
@@ -30,6 +31,7 @@ export default function Signin() {
 
   const signInNow = ({ email, password }) => {
     setLoading(true);
+    console.log({email , password});
     axios({
       method: "post",
       url: `${URL}/auth/login`,
@@ -45,7 +47,7 @@ export default function Signin() {
           points: response.data.user.points,
         }, role: response.data.user.role,
       }));
-      setLoading(true);
+      setLoading(false);
     }).catch((err) => {
       alert(err.response.data.message)
       setLoading(false);
@@ -53,7 +55,15 @@ export default function Signin() {
   }
 
   return (
+
+
     <View style={styles.wholeScreen}>
+      <View style={{  flex:3 , alignSelf:'center' }}>
+        <Image style={{width:300 , height:250 }}source={require('../../assets/images/envycle-demo.png')}
+        >
+        </Image>
+      </View>
+    <View style={{flex:6}}>
       <View style={styles.modalCard}>
         <Formik
           validationSchema={loginSchema}
@@ -108,7 +118,7 @@ export default function Signin() {
         </Formik>
       </View>
     </View>
-
+    </View>
   );
 }
 

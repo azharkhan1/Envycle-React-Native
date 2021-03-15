@@ -69,7 +69,7 @@ export default function AdminDashboard() {
     }
 
     return (
-        <Container>
+        <Container style={{backgroundColor: '#00868B',}}>
             <Header />
             <Content padder>
                 <CardItem header bordered>

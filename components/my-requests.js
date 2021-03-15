@@ -12,27 +12,18 @@ export default function myRequests() {
     const [myRequests, setMyRequests] = useState([]);
     const [loading, setLoading] = useState(true);
     const [change, handleChange] = useState(true);
-
     useEffect(() => {
-        let arr = [];
         axios({
             method: 'get',
-            url: `${url}/getOrders`,
-        }).then((response) => {
-            response.data.placedRequests.map((value) => {
-                if (value.status === 'Pending') {
-                    arr.push(value);
-                }
-            })
-            setMyRequests(arr);
-        }, (error) => {
-            console.log("an error occured");
+            url: `${url}/myorders`
+        }).then((res) => {
+            var userRequests = res.data.placedRequests.slice().reverse();
+            setMyRequests(userRequests);
+            setLoading(false)
+        }).catch((err) => {
+            alert('an error occoured');
         })
-        socket.on('requests', (data) => {
-            setRealTime(!realTime);
-        })
-    }, [realTime])
-
+    }, [change])
     const deleteOrder = (id) => {
         axios({
             method: 'delete',
@@ -56,6 +47,8 @@ export default function myRequests() {
                         <Content padder>
                             {myRequests.map(({ phoneNo, cart, address, status, _id }, index) => {
                                 return <Card key={index}>
+
+
                                     <CardItem bordered  >
                                         <Text >Status: <Text>{status}</Text></Text>
                                     </CardItem>
@@ -86,12 +79,21 @@ export default function myRequests() {
                         </Content>
                     </ScrollView >
                 </Container>
+
+
             }
+
+
+
+
         </Container>
+
     )
 }
 
 const styles = new StyleSheet.create({
+
+
     input: {
         width: 80,
         height: 20,

@@ -1,17 +1,17 @@
 import React from 'react';
-import { Container, Header, Content, Tab, Tabs } from 'native-base';
+import { Container, Header, Content, Tab, Tabs, TabHeading, Icon, Text } from 'native-base';
 import Materials from '../../components/materials';
 import MyRequests from '../../components/my-requests';
 
 const UserDashboard = () => {
   return (
-    <Container>
+    <Container  >
       <Header hasTabs />
-      <Tabs>
-        <Tab heading={'Place Request'}>
+      <Tabs tabBarBackgroundColor={'red'}>
+        <Tab heading={<TabHeading><Text>Place Request</Text></TabHeading>}>
           <Materials />
         </Tab>
-        <Tab heading={"My Requests"}>
+        <Tab heading={<TabHeading><Text>My Requests</Text></TabHeading>}>
           <MyRequests />
         </Tab>
       </Tabs>

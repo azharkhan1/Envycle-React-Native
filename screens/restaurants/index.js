@@ -53,7 +53,8 @@ export default function Restaurants() {
     }
 
     return (
-        <Container>
+        <Container style={{backgroundColor: '#00868B',}}>
+
             <ScrollView>
                 <Header />
                 <Content padder>

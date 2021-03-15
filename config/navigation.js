@@ -26,9 +26,9 @@ export default function Navigation() {
   const globalState = useGlobalState();
   return (
     <NativeRouter>
-      <Text>
+      {/* <Text>
         {JSON.stringify(globalState)}
-      </Text>
+      </Text> */}
       {globalState.loginStatus === false ?
         <>
           <Route exact path="/" component={Signin} />

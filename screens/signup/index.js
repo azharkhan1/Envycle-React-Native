@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
     TextInput,
     Alert, Pressable,
+    Image,
 } from 'react-native';
 import { NativeRouter, Route, Link } from "react-router-native";
 import { Formik } from 'formik';
@@ -57,6 +58,12 @@ export default function Signup() {
 
     return (
         <View style={styles.wholeScreen}>
+              <View style={{  flex:3 , alignSelf:'center' }}>
+        <Image style={{width:300 , height:250 }}source={require('../../assets/images/envycle-demo.png')}
+        >
+        </Image>
+      </View>
+      <View style={{flex:6}}>
             <View style={styles.modalCard}>
                 <Formik
                     validationSchema={SignupSchema}
@@ -124,6 +131,7 @@ export default function Signup() {
                     )}
 
                 </Formik>
+            </View>
             </View>
         </View>
     );
