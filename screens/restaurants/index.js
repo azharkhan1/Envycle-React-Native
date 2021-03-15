@@ -10,27 +10,54 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 export default function Restaurants() {
 
-    const [data, setData] = useState([]);
+    const [restaurants, setRestaurants] = React.useState([]);
+    const [change, setChange] = React.useState(true);
+    const [passcode, setPasscode] = useState();
     const globalState = useGlobalState();
     const globalStateUpdate = useGlobalStateUpdate();
+
     useEffect(() => {
         axios({
             method: 'get',
             url: `${url}/get-restaurants`
         }).then((response) => {
-            setData(response.data.restaurants);
+            setRestaurants(response.data.restaurants);
         }).catch((err) => {
             console.log('error occured');
         })
-    }, [])
+    }, [change])
 
-    
+
+    const redeemVoucher = (id, index) => {
+        console.log('id is  ', id);
+        axios({
+            method: 'post',
+            url: `${url}/redeem-voucher`,
+            data: {
+                id: id,
+                passcode: passcode,
+            }
+        }).then((response) => {
+            globalStateUpdate(prev => ({
+                ...prev, loginStatus: true, user: {
+                    ...globalState.user,
+                    points: restaurants[index].points - globalState.user.points,
+                }, role: response.data.user.role,
+            }));
+            setPasscode('');
+            setChange(!change);
+            alert(response.data.message);
+        }).catch((err) => {
+            console.log('response is=> ', err);
+        })
+    }
+
     return (
         <Container>
             <ScrollView>
                 <Header />
                 <Content padder>
-                    {data.map((value, index) => {
+                    {restaurants.map((value, index) => {
                         return <Card key={index}>
                             <CardItem bordered>
                                 <Body>
@@ -50,8 +77,10 @@ export default function Restaurants() {
                                     </CardItem>
                                     <CardItem>
                                         {globalState.user.points >= value.points ? <Input
+                                            onChangeText={(e) => setPasscode(e)}
                                             placeholder="Enter restaurant passcode"
                                             style={{ borderBottomWidth: 2 }}
+                                            secureTextEntry={true}
                                         />
                                             :
                                             <Text></Text>}
@@ -60,7 +89,10 @@ export default function Restaurants() {
                                 </Body>
                             </CardItem>
                             <CardItem footer bordered>
-                                {globalState.user.points >= value.points ? <Button><Text>Avail Voucher</Text></Button> : null}
+                                {globalState.user.points >= value.points ?
+                                    <Button
+                                        onPress={() => redeemVoucher(value._id, index)}
+                                    ><Text>Avail Voucher</Text></Button> : null}
                             </CardItem>
                         </Card>
                     })}

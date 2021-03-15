@@ -20,14 +20,15 @@ import {
   Text
 } from "react-native";
 import Restaurants from '../screens/restaurants';
+import AdminDashboard from '../screens/admin-dashboard';
 
 export default function Navigation() {
   const globalState = useGlobalState();
   return (
     <NativeRouter>
-      {/* <Text>
+      <Text>
         {JSON.stringify(globalState)}
-      </Text> */}
+      </Text>
       {globalState.loginStatus === false ?
         <>
           <Route exact path="/" component={Signin} />
@@ -51,6 +52,19 @@ export default function Navigation() {
           <Route
             path='/restaurants'
             component={Restaurants}
+          >
+          </Route>
+          <AppFooter />
+        </>
+
+        : null}
+      {(globalState.loginStatus === true && globalState.user.role === 'admin')
+        ?
+        <>
+          <Route
+            path='/'
+            exact
+            component={AdminDashboard}
           >
           </Route>
           <AppFooter />

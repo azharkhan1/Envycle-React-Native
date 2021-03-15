@@ -1,33 +1,35 @@
-import React, { useRef, useState, createRef } from 'react';
-import {
+import React, { useRef, useState, createRef, } from 'react';
 
+import {
   StyleSheet,
   View,
   Text,
-  TouchableOpacity,
-  TextInput,
-
+  Pressable,
 } from 'react-native';
-import { Card } from "react-native-elements";
-import axios from "axios";
-import URL from "../../core";
-
-
-
-// Importing React Router Native
-
 import { Link } from "react-router-native";
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import { Spinner, Item, Input, Label } from 'native-base';
+import URL from '../../core/index';
+import axios from "axios";
+import styles from '../../assets/global-styles/globalStyles';
 
-import { useGlobalState, useGlobalStateUpdate } from "../../context/context";
+
+import { useGlobalStateUpdate } from "../../context/context";
 
 export default function Signin() {
-  const [email, setEmail] = useState()
-  const [password, setPassword] = useState()
-  const [message, setMessage] = useState('Sign In');
+
+  const [loading, setLoading] = useState(false);
   const globalStateUpdate = useGlobalStateUpdate();
 
-  const signInNow = () => {
-    console.log('function is running', email, password);
+  const loginSchema = Yup.object().shape({
+    password: Yup.string()
+      .required('Required'),
+    email: Yup.string().email('Invalid email').required('Required'),
+  });
+
+  const signInNow = ({ email, password }) => {
+    setLoading(true);
     axios({
       method: "post",
       url: `${URL}/auth/login`,
@@ -43,92 +45,71 @@ export default function Signin() {
           points: response.data.user.points,
         }, role: response.data.user.role,
       }));
-      console.log('This is response=>', response.data);
-      setMessage('Logged in');
+      setLoading(true);
     }).catch((err) => {
-      setMessage('failed');
+      alert(err.response.data.message)
+      setLoading(false);
     })
-
   }
 
   return (
+    <View style={styles.wholeScreen}>
+      <View style={styles.modalCard}>
+        <Formik
+          validationSchema={loginSchema}
+          initialValues={{ email: '', password: '' }}
+          onSubmit={values => signInNow(values)}
+        >
+          {({ handleChange, handleBlur, handleSubmit, values, errors, isValid }) => (
+            <View>
+              {errors.email &&
+                <Label style={{ fontSize: 10, color: 'red' }}>{errors.email}</Label>
+              }
+              <Item stackedLabel last>
+                <Input
+                  onChangeText={handleChange('email')}
+                  onBlur={handleBlur('email')}
+                  value={values.email}
+                  placeholder={'Enter your email'}
+                />
+              </Item>
+              <Item stackedLabel last
+              >
+                {errors.password &&
+                  <Label style={{ fontSize: 10, color: 'red' }}>{errors.password}</Label>
+                }
+                <Input
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                  value={values.password}
+                  secureTextEntry={true}
+                  placeholder={'Enter your password'}
+                />
+              </Item>
+              {loading ? <Spinner />
+                :
+                <Pressable
+                  style={[styles.button, styles.buttonClose, { marginTop: 20 }]}
+                  onPress={handleSubmit}
+                >
+                  <Text style={styles.textStyle}>Login</Text>
+                </Pressable>
 
-    <View style={styles.container}>
-      <View style={styles.input_container}>
-        <Card containerStyle={styles.card}>
-          <Card.Title>{message}</Card.Title>
-          <TextInput
-            style={styles.input}
-            type="email" placeholder={'Enter your email'}
-            onChangeText={(e) => setEmail(e)}
-          />
-          <Card.Divider />
-          <TextInput
-            style={styles.input}
-            placeholder={"Enter your password"}
-            onChangeText={(e) => setPassword(e)}
-          />
-          <TouchableOpacity style={styles.button}
-            onPress={() => signInNow()}
-          >
-            <Text style={styles.text}>Login</Text>
-          </TouchableOpacity>
-          <Link to="/signup">
-            <Text styles={styles.createAccount}>
-              Create an account
-            </Text>
-          </Link>
+              }
 
-        </Card>
+              <View style={{ marginTop: 20 }}>
+                <Link to="/signup">
+                  <Text>
+                    Create an account
+                    </Text></Link>
+              </View>
+            </View>
+          )}
+        </Formik>
       </View>
     </View>
 
   );
 }
-
-
-const styles = StyleSheet.create({
-
-  input: {
-    width: 295,
-    height: 40,
-    borderWidth: 1,
-    marginTop: 5,
-    borderRadius: 3,
-  },
-  container: {
-    display: "flex", justifyContent: "center", flex: 1, alignItems: "center",
-    color: "white",
-    backgroundColor: "#0f893b"
-  },
-
-  button: {
-    width: 200,
-    height: 50,
-    backgroundColor: "#014732",
-    color: "white",
-    textAlign: "center",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    fontSize: 16,
-    marginTop: 20,
-    alignSelf: "center",
-    borderRadius: 4,
-
-  },
-  text: {
-    color: "white",
-    fontSize: 16,
-  },
-  card: {
-    borderRadius: 10,
-    display: "flex",
-    padding: 40,
-    shadowOpacity: 0.48,
-    shadowRadius: 11.95,
-    elevation: 18,
-  }
-})
 
 

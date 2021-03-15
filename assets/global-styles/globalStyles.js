@@ -1,46 +1,118 @@
 import {StyleSheet} from 'react-native';
+const styles = new StyleSheet.create({
+  cardContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      flexDirection: 'row',
+      flex: 1,
+      padding: 20,
+      shadowColor: "#000",
+      shadowOffset: {
+          width: 0,
+          height: 4,
+      },
+      shadowOpacity: 0.32,
+      shadowRadius: 5.46,
 
- const globalStyles = StyleSheet.create({
-    input: {
-      width: 295,
-      height: 40,
-      borderWidth: 1,
-      marginTop: 5,
-      borderRadius: 3,
-    },
-    container: {
-      display: "flex", justifyContent: "center",alignItems: "center",
-      color: "white",
-      backgroundColor: "#0f893b"
-    },
-  
-    button: {
-      width: 200,
-      height: 50,
-      backgroundColor: "#014732",
-      color: "white",
-      textAlign: "center",
+      elevation: 9,
+
+
+  },
+
+  closeBtn: {
+      width: 20,
+      height: 20,
+      backgroundColor: 'black',
+      position: 'absolute',
+      right: -30,
+      top: -30,
+  },
+  wholeScreen: {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      fontSize: 16,
-      marginTop: 20,
-      alignSelf: "center",
-      borderRadius: 4,
-  
-    },
-    text: {
       color: "white",
-      fontSize: 16,
-    },
-    card: {
-      borderRadius: 10,
-      display: "flex",
+      backgroundColor: 'white',
+      width: '100%',
+      height: '100%',
+  },
+  modalCard: {
+      display: 'flex',
+      backgroundColor: 'white',
+      padding: 20,
       padding: 40,
       shadowOpacity: 0.48,
       shadowRadius: 11.95,
       elevation: 18,
-    }
-  })
+      width: '99%',
+      borderTopColor: 'blue',
+      borderWidth: 1,
+      borderRadius: 25,
+  },
 
-  export default globalStyles;
+  myButton: {
+      width: 55,
+      height: 30,
+      backgroundColor: "#014732",
+      color: "white",
+      textAlign: "center",
+      fontSize: 16,
+      marginTop: 40,
+      borderRadius: 0,
+      position: 'relative',
+      bottom: 10,
+      marginLeft: 5,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+  },
+
+
+
+  centeredView: {
+      flex: 3,
+      justifyContent: "center",
+      alignItems: "center",
+      marginTop: 22,
+      flexDirection: 'column',
+
+  },
+  modalView: {
+      margin: 20,
+      backgroundColor: "white",
+      borderRadius: 20,
+      padding: 35,
+      alignItems: "center",
+      shadowColor: "#000",
+      shadowOffset: {
+          width: 0,
+          height: 2
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5
+  },
+  button: {
+      borderRadius: 20,
+      padding: 10,
+      elevation: 2,
+  },
+  buttonOpen: {
+      backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+      backgroundColor: "#2196F3",
+  },
+  textStyle: {
+      color: "white",
+      fontWeight: "bold",
+      textAlign: "center"
+  },
+  modalText: {
+      marginBottom: 15,
+      textAlign: "center"
+  }
+})
+export default styles;
