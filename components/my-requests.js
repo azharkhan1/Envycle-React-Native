@@ -53,11 +53,11 @@ export default function myRequests() {
                                         <Text >Status: <Text>{status}</Text></Text>
                                     </CardItem>
                                     <CardItem bordered>
-                                        {cart.map(({ product, quantity }, index) => {
+                                        {cart.map((value, index) => {
                                             return <Body key={index}>
                                                 <CardItem bordered>
                                                     <Text>
-                                                        Product: {product} x {quantity} kg
+                                                        Product: {value.name ? value.name : value.product} x {value.quantity} kg
                                                 </Text>
                                                 </CardItem>
                                             </Body>

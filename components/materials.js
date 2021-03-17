@@ -106,6 +106,7 @@ export default function Materials() {
             materials.map((value, index) => {
                 value.quantity = 0;
             })
+            setModalVisible(!modalVisible);
             setChange(!change);
         }, (error) => {
             // console.log("an error occured");
@@ -117,7 +118,7 @@ export default function Materials() {
     }
 
     return (
-        <View style={[styles.container] , [{height:'100%'}]}>
+        <View style={[styles.container], [{ height: '100%' }]}>
             <ScrollView>
                 {loading ? <Spinner /> :
                     <>
