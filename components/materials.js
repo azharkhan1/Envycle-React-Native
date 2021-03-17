@@ -24,8 +24,7 @@ export default function Materials() {
     const [materials, setMaterials] = useState();
     const [total, setTotal] = useState(0);
     const [change, setChange] = useState(true);
-    const globalStateUpdate = useGlobalStateUpdate();
-    const globalState = useGlobalState();
+
 
     useEffect(() => {
         axios({
@@ -112,9 +111,6 @@ export default function Materials() {
             // console.log("an error occured");
             alert('An error occured');
         })
-
-
-
     }
 
     return (
@@ -148,8 +144,6 @@ export default function Materials() {
                             </View>
                         })}
                     </>
-
-
                 }
                 <View style={styles.centeredView}>
                     <Modal
@@ -216,12 +210,15 @@ export default function Materials() {
                             </View>
                         </View>
                     </Modal>
-                    <Pressable
-                        style={[styles.button, styles.buttonClose]}
-                        onPress={total >= 20 ? () => setModalVisible(true) : () => { return }}
-                    >
-                        <Text style={styles.textStyle}>{total >= 20 ? 'Checkout' : 'Minimum 20kg to place request'}</Text>
-                    </Pressable>
+                    {loading ? null :
+                        <Pressable
+                            style={[styles.button, styles.buttonClose]}
+                            onPress={total >= 20 ? () => setModalVisible(true) : () => { return }}
+                        >
+                            <Text style={styles.textStyle}>{total >= 20 ? 'Checkout' : 'Minimum 20kg to place request'}</Text>
+                        </Pressable>
+                    }
+
                 </View>
             </ScrollView>
         </View>

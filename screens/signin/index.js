@@ -107,7 +107,7 @@ export default function Signin() {
 
               }
 
-              <View style={{ marginTop: 20 }}>
+              <View style={{ marginTop: 20 , alignSelf:'center' , fontSize:8 }}>
                 <Link to="/signup">
                   <Text>
                     Create an account

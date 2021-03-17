@@ -4,12 +4,17 @@ import { Container, Header, Content, Card, CardItem, Text, Body, Button, Left, R
 import { Spinner } from "native-base"
 import url from "../core/index";
 import axios from 'axios';
+import { RefreshControl } from 'react-native';
+import { SafeAreaView } from 'react-native';
 
 
-
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+}
 
 export default function myRequests() {
     const [myRequests, setMyRequests] = useState([]);
+    const [refreshing, setRefreshing] = React.useState(false);
     const [loading, setLoading] = useState(true);
     const [change, handleChange] = useState(true);
     useEffect(() => {
@@ -38,55 +43,72 @@ export default function myRequests() {
             alert('server error');
         })
     }
+
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(2000).then(() => setRefreshing(false));
+        handleChange(!change)
+    }, []);
+
     return (
+
         <Container>
-
             {loading ? <Spinner /> :
+
                 <Container>
-                    <ScrollView>
-                        <Content padder>
-                            {myRequests.map(({ phoneNo, cart, address, status, _id }, index) => {
-                                return <Card key={index}>
+                    <SafeAreaView>
+                        <ScrollView
+                            contentContainerStyle={styles.scrollView}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={refreshing}
+                                    onRefresh={onRefresh}
+                                />
+                            }
+                        >
+                            <Content padder>
+                                {myRequests.map(({ phoneNo, cart, address, status, _id }, index) => {
+                                    return <Card key={index}>
 
 
-                                    <CardItem bordered  >
-                                        <Text >Status: <Text>{status}</Text></Text>
-                                    </CardItem>
-                                    <CardItem bordered>
-                                        {cart.map((value, index) => {
-                                            return <Body key={index}>
-                                                <CardItem bordered>
-                                                    <Text>
-                                                        Product: {value.name ? value.name : value.product} x {value.quantity} kg
+                                        <CardItem bordered  >
+                                            <Text >Status: <Text>{status}</Text></Text>
+                                        </CardItem>
+                                        <CardItem bordered>
+                                            {cart.map((value, index) => {
+                                                return <Body key={index}>
+                                                    <CardItem bordered>
+                                                        <Text>
+                                                            Material: {value.name ? value.name : value.product} x {value.quantity} kg
                                                 </Text>
-                                                </CardItem>
-                                            </Body>
-                                        })}
+                                                    </CardItem>
+                                                </Body>
+                                            })}
 
-                                    </CardItem>
-                                    <CardItem footer bordered>
-                                        {status === 'Pending' ?
-                                            < Button onPress={() => deleteOrder(_id)} danger><Text>Cancel Request </Text></Button>
-                                            : <></>
-                                        }
-                                    </CardItem>
-                                </Card>
-
-
+                                        </CardItem>
+                                        <CardItem footer bordered>
+                                            {status === 'Pending' ?
+                                                < Button onPress={() => deleteOrder(_id)} danger><Text>Cancel Request </Text></Button>
+                                                : <></>
+                                            }
+                                        </CardItem>
+                                    </Card>
 
 
-                            })}
-                        </Content>
-                    </ScrollView >
+
+
+                                })}
+
+                            </Content>
+                        </ScrollView>
+                    </SafeAreaView>
                 </Container>
-
 
             }
 
+        </Container >
 
-
-
-        </Container>
 
     )
 }
