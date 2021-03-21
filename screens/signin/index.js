@@ -31,7 +31,6 @@ export default function Signin() {
 
   const signInNow = ({ email, password }) => {
     setLoading(true);
-    console.log({email , password});
     axios({
       method: "post",
       url: `${URL}/auth/login`,
@@ -47,7 +46,7 @@ export default function Signin() {
           points: response.data.user.points,
         }, role: response.data.user.role,
       }));
-      setLoading(false);
+      
     }).catch((err) => {
       alert(err.response.data.message)
       setLoading(false);
@@ -106,14 +105,21 @@ export default function Signin() {
                 </Pressable>
 
               }
-
+  <View style={{display:'flex' , flexDirection:'row' , justifyContent:'space-between'}}>
               <View style={{ marginTop: 20 , alignSelf:'center' , fontSize:8 }}>
                 <Link to="/signup">
                   <Text>
                     Create an account
                     </Text></Link>
               </View>
+              <View style={{ marginTop: 20 , alignSelf:'center' , fontSize:8 }}>
+                <Link to="/forgot-password">
+                  <Text>
+                    Forgot Password?
+                    </Text></Link>
+              </View>
             </View>
+  </View>
           )}
         </Formik>
       </View>

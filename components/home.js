@@ -1,41 +1,62 @@
 
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Text, Image, StyleSheet , TouchableOpacity } from 'react-native'
 import React from 'react';
-import { Card, ListItem, Button, Icon } from 'react-native-elements'
-import Footer from "../components/footer";
+import {Link} from 'react-router-native';
 export default function Home() {
     return (
         <>
-
-            <View style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00868B' }}>
-                <View style={{ flex: 3, alignSelf: 'center' }}>
-                    <Image style={{ width: 300, height: 250 }} source={require('../assets/images/envycle-demo.png')}
-                    >
-                    </Image>
-                </View>
-                <View style={{ flex: 6 }}>
-                    <Card containerStyle={{backgroundColor:'transparent'}}>
-                        <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
-                            <Card.Image containerStyle={{ width: '50%' }} source={require('../assets/images/give-recycle.png')}>
-                                {/* <Text style={{ marginBottom: 10 }}>
-                                    The idea with React Native Elements is more about component structure than actual design.
-    </Text> */}
-                            </Card.Image>
-                            <Card.Image containerStyle={{ width: '50%', }} source={require('../assets/images/give-recycle.png')}>
-   
-                            </Card.Image>
-                        </View>
-                        <View style={{ display: 'flex', flexDirection: 'row', }}>
-                            <Card.Image containerStyle={{ width: '50%' }} source={require('../assets/images/give-recycle.png')}>
-
-                            </Card.Image>
-                            <Card.Image containerStyle={{ width: '50%' }} source={require('../assets/images/give-recycle.png')}>
-  
-                            </Card.Image>
-    
-                        </View>
-                    </Card>
-                </View>
+            <View style={{ display: 'flex', flex: 1, justifyContent: 'center', backgroundColor: '#28D6C0', padding: 20 }}>
+            <TouchableOpacity style={styles.homeIcons} onPress={()=>console.log('hello working profile')}>
+                   <View style={{ alignSelf: 'center' , backgroundColor:'#00868B' , height:'100%' , }} >
+                        <Image style={{ width: 110, height: 110, alignSelf: 'flex-end' }} source={require('../assets/images/givee-recycle.png')}
+                        >
+                        </Image>
+                    </View>
+                    <View style={{ display: 'flex', alignSelf: 'center' , marginLeft:40 }}>
+                        <Text style={{ alignSelf: 'center', fontSize: 18, fontWeight: 'bold' , color:'#00868B'}}>
+                            Place Request Now
+                    </Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.homeIcons} onPress={()=>console.log('hello working profile')}>
+                   <View style={{ alignSelf: 'center' , backgroundColor:'#00868B' , height:'100%' , }} >
+                        <Image style={{ width: 110, height: 110, alignSelf: 'flex-end' }} source={require('../assets/images/redeem-voucher.png')}
+                        >
+                        </Image>
+                    </View>
+                    <View style={{ display: 'flex', alignSelf: 'center' , marginLeft:40 }}>
+                        <Text style={{ alignSelf: 'center', fontSize: 18, fontWeight: 'bold' , color:'#00868B'}}>
+                           Redeem Voucher
+                    </Text>
+                    </View>
+                </TouchableOpacity>
+           
+                <TouchableOpacity style={styles.homeIcons} onPress={()=>console.log('hello working profile')}>
+                   <View style={{ alignSelf: 'center' , backgroundColor:'#00868B' , height:'100%' , }} >
+                        <Image style={{ width: 110, height: 110, alignSelf: 'flex-end' }} source={require('../assets/images/givee-recycle.png')}
+                        >
+                        </Image>
+                    </View>
+                    <View style={{ display: 'flex', alignSelf: 'center' , marginLeft:40 }}>
+                        <Text style={{ alignSelf: 'center', fontSize: 18, fontWeight: 'bold' , color:'#00868B'}}>
+                            My Profile
+                    </Text>
+                    </View>
+                </TouchableOpacity>
+           
+                <TouchableOpacity style={styles.homeIcons} onPress={()=>console.log('hello working profile')}>
+                   <View style={{ alignSelf: 'center' , backgroundColor:'#00868B' , height:'100%' , }} >
+                        <Image style={{ width: 110, height: 110, alignSelf: 'flex-end' }} source={require('../assets/images/my-requests.png')}
+                        >
+                        </Image>
+                    </View>
+                    <View style={{ display: 'flex', alignSelf: 'center' , marginLeft:40 }}>
+                        <Text style={{ alignSelf: 'center', fontSize: 18, fontWeight: 'bold' , color:'#00868B'}}>
+                            My Requests
+                    </Text>
+                    </View>
+                </TouchableOpacity>
+           
             </View>
 
         </>
@@ -57,5 +78,21 @@ const styles = new StyleSheet.create({
         flex: 1,
         flexWrap: 'wrap',
     },
+    homeIcons: {
+         display: 'flex', flex: 1, marginTop: 40, backgroundColor: 'white', flexDirection: 'row' ,
+         justifyContent:'flex-start',
+        alignSelf:'center',
+         shadowColor: "#00868B",
+         shadowOffset: {
+             width: 0,
+             height: 10,
+         },
+         shadowOpacity: 0.51,
+         shadowRadius: 13.16,
+         width:'95%',
+         elevation: 20,
+        }
+,
+
 
 })

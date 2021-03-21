@@ -10,6 +10,7 @@ import Signup from "../screens/signup";
 import UserDashboard from "../screens/user-dashboard/user-dashboard";
 import AppFooter from "../components/footer";
 import MyProfile from '../screens/myProfile';
+import ForgotPassword from '../screens/forgot-password';
 
 // importing react native navigations
 import { NativeRouter, Route, Link } from "react-router-native";
@@ -32,6 +33,7 @@ export default function Navigation() {
       {globalState.loginStatus === false ?
         <>
           <Route exact path="/" component={Signin} />
+          <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route path="/signup" component={Signup} />
         </>
         : null}
@@ -53,6 +55,7 @@ export default function Navigation() {
             path='/restaurants'
             component={Restaurants}
           >
+          
           </Route>
           <AppFooter />
         </>
