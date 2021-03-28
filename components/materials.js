@@ -113,8 +113,8 @@ export default function Materials() {
     }
 
     return (
-        <View style={[styles.container], [{ height: '100%' }]}>
             <ScrollView>
+        <View style={[styles.container], [{ height: '100%' }]}>
                 {loading ? <Spinner /> :
                     <>
                         {materials.map(({ name, quantity, url }, index) => {
@@ -219,8 +219,8 @@ export default function Materials() {
                     }
 
                 </View>
-            </ScrollView>
         </View>
+            </ScrollView>
     )
 }
 

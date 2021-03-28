@@ -1,12 +1,13 @@
 
 import { View, Text, Image, StyleSheet , TouchableOpacity } from 'react-native'
 import React from 'react';
-import {Link} from 'react-router-native';
+import {useHistory} from 'react-router-native';
 export default function Home() {
+    const history = useHistory();
     return (
         <>
             <View style={{ display: 'flex', flex: 1, justifyContent: 'center', backgroundColor: '#28D6C0', padding: 20 }}>
-            <TouchableOpacity style={styles.homeIcons} onPress={()=>console.log('hello working profile')}>
+            <TouchableOpacity style={styles.homeIcons} onPress={()=>history.push('/place-request')}>
                    <View style={{ alignSelf: 'center' , backgroundColor:'#00868B' , height:'100%' , }} >
                         <Image style={{ width: 110, height: 110, alignSelf: 'flex-end' }} source={require('../assets/images/givee-recycle.png')}
                         >
@@ -18,7 +19,7 @@ export default function Home() {
                     </Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.homeIcons} onPress={()=>console.log('hello working profile')}>
+                <TouchableOpacity style={styles.homeIcons} onPress={()=>history.push('/restaurants')}>
                    <View style={{ alignSelf: 'center' , backgroundColor:'#00868B' , height:'100%' , }} >
                         <Image style={{ width: 110, height: 110, alignSelf: 'flex-end' }} source={require('../assets/images/redeem-voucher.png')}
                         >
@@ -31,7 +32,7 @@ export default function Home() {
                     </View>
                 </TouchableOpacity>
            
-                <TouchableOpacity style={styles.homeIcons} onPress={()=>console.log('hello working profile')}>
+                <TouchableOpacity style={styles.homeIcons} onPress={()=>history.push('/my-profile')}>
                    <View style={{ alignSelf: 'center' , backgroundColor:'#00868B' , height:'100%' , }} >
                         <Image style={{ width: 110, height: 110, alignSelf: 'flex-end' }} source={require('../assets/images/givee-recycle.png')}
                         >
@@ -44,7 +45,7 @@ export default function Home() {
                     </View>
                 </TouchableOpacity>
            
-                <TouchableOpacity style={styles.homeIcons} onPress={()=>console.log('hello working profile')}>
+                <TouchableOpacity style={styles.homeIcons} onPress={()=>history.push('/my-requests')}>
                    <View style={{ alignSelf: 'center' , backgroundColor:'#00868B' , height:'100%' , }} >
                         <Image style={{ width: 110, height: 110, alignSelf: 'flex-end' }} source={require('../assets/images/my-requests.png')}
                         >

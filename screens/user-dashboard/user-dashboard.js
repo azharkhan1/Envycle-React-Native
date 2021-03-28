@@ -3,11 +3,13 @@ import { Container, Header, Content, Tab, Tabs, TabHeading, Icon, Text } from 'n
 import Materials from '../../components/materials';
 import MyRequests from '../../components/my-requests';
 import Home from '../../components/home'
-const UserDashboard = () => {
+
+const UserDashboard = ({page}) => {
+
   return (
     <Container  >
-      {/* <Home/> */}
-      <Header hasTabs />
+      <Home />
+      {/* <Header hasTabs />
       <Tabs tabBarBackgroundColor={'red'}>
         <Tab heading={<TabHeading><Text>Place Request</Text></TabHeading>}>
           <Materials />
@@ -15,7 +17,7 @@ const UserDashboard = () => {
         <Tab heading={<TabHeading><Text>My Requests</Text></TabHeading>}>
           <MyRequests />
         </Tab>
-      </Tabs>
+      </Tabs> */}
     </Container>
 
   );

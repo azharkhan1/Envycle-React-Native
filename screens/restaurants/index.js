@@ -60,7 +60,7 @@ export default function Restaurants() {
         <Container style={{ backgroundColor: '#00868B', }}>
             {loading ? <Spinner /> :
                 <ScrollView>
-                    <Header />
+                    {/* <Header /> */}
                     <Content padder>
                         {restaurants.map((value, index) => {
                             return <Card key={index}>

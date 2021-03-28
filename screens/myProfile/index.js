@@ -57,7 +57,7 @@ export default function MyProfile() {
     }
     return (
         <Container style={{ backgroundColor: '#00868B', }}>
-            <Header />
+            {/* <Header /> */}
             <Content padder>
                 <Card>
                     <CardItem header bordered>

@@ -22,6 +22,8 @@ import {
 } from "react-native";
 import Restaurants from '../screens/restaurants';
 import AdminDashboard from '../screens/admin-dashboard';
+import myRequests from '../components/my-requests';
+import Materials from '../components/materials';
 
 export default function Navigation() {
   const globalState = useGlobalState();
@@ -49,15 +51,23 @@ export default function Navigation() {
           <Route
             path='/my-profile'
             component={MyProfile}
-          >
-          </Route>
+          />
+            
+      
           <Route
             path='/restaurants'
             component={Restaurants}
-          >
-          
-          </Route>
-          <AppFooter />
+          />
+                <Route
+            path='/my-requests'
+            component={myRequests}
+          />
+          <Route
+            path='/place-request'
+            component={Materials}
+          />
+        <AppFooter />
+        
         </>
 
         : null}

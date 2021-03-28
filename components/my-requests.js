@@ -54,8 +54,8 @@ export default function myRequests() {
     return (
 
         <Container>
+            <Header/>
             {loading ? <Spinner /> :
-
                 <Container>
                     <SafeAreaView>
                         <ScrollView
@@ -71,9 +71,8 @@ export default function myRequests() {
                                 {myRequests.map(({ phoneNo, cart, address, status, _id }, index) => {
                                     return <Card key={index}>
 
-
-                                        <CardItem bordered  >
-                                            <Text >Status: <Text>{status}</Text></Text>
+                                        <CardItem bordered style={{ backgroundColor: '#00868B'}} >
+                                            <Text style={{color:'white'}}>Status: <Text style={{color:'white'}}>{status}</Text></Text>
                                         </CardItem>
                                         <CardItem bordered>
                                             {cart.map((value, index) => {
