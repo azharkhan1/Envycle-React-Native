@@ -24,6 +24,7 @@ export default function Restaurants() {
         }).then((response) => {
             setRestaurants(response.data.restaurants);
             setLoading(false);
+            console.log('restaurants',response.data.restaurants);
         }).catch((err) => {
             console.log('error occured');
             setLoading(true);

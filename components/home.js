@@ -90,7 +90,7 @@ const styles = new StyleSheet.create({
          },
          shadowOpacity: 0.51,
          shadowRadius: 13.16,
-         width:'95%',
+         width:'100%',
          elevation: 20,
         }
 ,

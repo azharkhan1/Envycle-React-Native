@@ -13,7 +13,7 @@ import MyProfile from '../screens/myProfile';
 import ForgotPassword from '../screens/forgot-password';
 
 // importing react native navigations
-import { NativeRouter, Route, Link } from "react-router-native";
+import { NativeRouter, Route, BackButton,Switch } from "react-router-native";
 import { useGlobalState } from "../context/context";
 
 
@@ -29,6 +29,8 @@ export default function Navigation() {
   const globalState = useGlobalState();
   return (
     <NativeRouter>
+      <BackButton>
+
       {/* <Text>
         {JSON.stringify(globalState)}
       </Text> */}
@@ -46,31 +48,31 @@ export default function Navigation() {
             path='/'
             exact
             component={UserDashboard}
-          >
+            >
           </Route>
           <Route
             path='/my-profile'
             component={MyProfile}
-          />
+            />
             
       
           <Route
             path='/restaurants'
             component={Restaurants}
-          />
+            />
                 <Route
             path='/my-requests'
             component={myRequests}
-          />
+            />
           <Route
             path='/place-request'
             component={Materials}
-          />
+            />
         <AppFooter />
         
         </>
 
-        : null}
+: null}
       {(globalState.loginStatus === true && globalState.user.role === 'admin')
         ?
         <>
@@ -78,12 +80,18 @@ export default function Navigation() {
             path='/'
             exact
             component={AdminDashboard}
-          >
+            >
           </Route>
-          <AppFooter />
+          <Route
+            path='/my-profile'
+            component={MyProfile}
+            />
+            
+         <AppFooter />
         </>
 
-        : null}
+: null}
+</BackButton>
     </NativeRouter>
   )
 }

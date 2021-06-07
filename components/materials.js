@@ -7,7 +7,7 @@ import {
     Text,
     TouchableOpacity, ImageBackground,
 } from 'react-native';
-import { Container, Spinner, Thumbnail, Form, Item, Input, Label, Textarea, Content } from 'native-base';
+import { H3, Icon, Card, CardItem, Body, Container, Spinner, Thumbnail, Form, Item, Input, Label, Textarea, Content } from 'native-base';
 import axios from 'axios'
 import url from "../core/index";
 import { Formik } from 'formik';
@@ -113,37 +113,50 @@ export default function Materials() {
     }
 
     return (
-            <ScrollView>
-        <View style={[styles.container], [{ height: '100%' }]}>
+        <ScrollView>
+            <View >
                 {loading ? <Spinner /> :
-                    <>
-                        {materials.map(({ name, quantity, url }, index) => {
-                            return <View style={styles.cardContainer} key={index}>
-                                <Thumbnail source={{ uri: url }}></Thumbnail>
-                                <Text>{name}</Text>
-                                <Text style={styles.input}>{quantity}</Text>
-                                <View style={{ display: 'flex', flexDirection: 'row' }}>
-                                    <TouchableOpacity style={styles.myButton} onPress={() => addQty(index)}>
-                                        <ImageBackground
-                                            source={require('../assets/images/add.png')}
-                                            style={{ height: 18, width: 18, }}
-                                        >
-                                            <Text style={{ color: 'white', fontSize: 18 }}></Text >
-                                        </ImageBackground>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.myButton} onPress={quantity > 0 ? () => removeQty(index) : () => { return }}>
-                                        <ImageBackground
-                                            source={require('../assets/images/minus.png')}
-                                            style={{ height: 18, width: 18, position: 'relative', top: 8 }}
-                                        >
-                                        </ImageBackground>
-                                    </TouchableOpacity>
+                    <Card style={{height:'100%'}}>
+                        <CardItem bordered style={{ marginBottom:10 , backgroundColor: '#00868B' , justifyContent:'center' }} >
+                       <H3 style={{color:'white' , alignSelf:'center' }}>Place Request</H3>
+                        </CardItem>
+                        <View style={styles.container}>
+                            {materials.map(({ name, quantity, url }, index) => {
+                                return <View key={index} style={styles.cardContainer}>
+                                    <Thumbnail source={{  uri: url }}></Thumbnail>
+                                    <Text>{name}</Text>
+                                    <Text style={styles.input}>{quantity}</Text>
+                                    <View style={{ display: 'flex', flexDirection: 'row' }}>
+                                        <TouchableOpacity style={styles.myButton} onPress={() => addQty(index)}>
+                                            <ImageBackground
+                                                source={require('../assets/images/add.png')}
+                                                style={{ height: 18, width: 18, }}
+                                            >
+                                                <Text style={{ color: 'white', fontSize: 18 }}></Text >
+                                            </ImageBackground>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={styles.myButton} onPress={quantity > 0 ? () => removeQty(index) : () => { return }}>
+                                            <ImageBackground
+                                                source={require('../assets/images/minus.png')}
+                                                style={{ height: 18, width: 18, position: 'relative', top: 8 }}
+                                            >
+                                            </ImageBackground>
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
-
-                            </View>
-                        })}
-                    </>
-                }
+                            })}
+                        </View>
+                        {loading ? null :
+                        <Pressable
+                            style={[styles.button , styles.buttonClose]}
+                            onPress={total >= 20 ? () => setModalVisible(true) : () => { return }}
+                        >
+                            <Text style={styles.textStyle}>{total >= 20 ? 'Checkout' : 'Minimum 20kg to place request'}</Text>
+                        </Pressable>
+                    }
+                    </Card>
+             
+             }
                 <View style={styles.centeredView}>
                     <Modal
 
@@ -209,32 +222,30 @@ export default function Materials() {
                             </View>
                         </View>
                     </Modal>
-                    {loading ? null :
-                        <Pressable
-                            style={[styles.button, styles.buttonClose]}
-                            onPress={total >= 20 ? () => setModalVisible(true) : () => { return }}
-                        >
-                            <Text style={styles.textStyle}>{total >= 20 ? 'Checkout' : 'Minimum 20kg to place request'}</Text>
-                        </Pressable>
-                    }
-
                 </View>
-        </View>
-            </ScrollView>
+            </View>
+        </ScrollView>
     )
 }
 
 const styles = new StyleSheet.create({
 
+    container: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        flexShrink: 1,
+        alignItems: 'center',
+    },
     cardContainer: {
         display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-around',
-        flexDirection: 'row',
-        flex: 1,
-        padding: 20,
+        flexShrink: 1,
+        padding:10,
         shadowColor: "#000",
+        alignSelf: 'center',
         shadowOffset: {
             width: 0,
             height: 4,
@@ -284,13 +295,14 @@ const styles = new StyleSheet.create({
     },
     myButton: {
         width: 55,
-        height: 30,
-        backgroundColor: "#014732",
+        padding: 5,
+        marginBottom:10,
+        backgroundColor: "#2196F3",
         color: "white",
         textAlign: "center",
         fontSize: 16,
         marginTop: 20,
-        borderRadius: 0,
+        borderRadius: 10,
         position: 'relative',
         bottom: 10,
         marginLeft: 5,

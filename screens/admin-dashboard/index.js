@@ -73,7 +73,7 @@ export default function AdminDashboard() {
             <Header />
             <Content padder>
                 <CardItem header bordered>
-                    <Text>NativeBase</Text>
+                    <Text>{orders>0 ? `You have ${orders.length} request` : `No request` }</Text>
                 </CardItem>
                 {orders.map(({ cart, _id, phoneNo, address, userEmail, remarks }, index) => {
                     return <Card key={index}>

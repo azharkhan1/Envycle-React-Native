@@ -50,6 +50,7 @@ export default function ForgotPassword() {
             setForgot(true);
         }, (error) => {
             setForgot(false);
+            alert(error.response.data.message)
             console.log("an error occured");
         })
     }

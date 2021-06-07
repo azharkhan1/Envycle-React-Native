@@ -30,6 +30,7 @@ export default function Signin() {
   });
 
   const signInNow = ({ email, password }) => {
+    console.log('url is ', URL);
     setLoading(true);
     axios({
       method: "post",
@@ -48,7 +49,8 @@ export default function Signin() {
       }));
       
     }).catch((err) => {
-      alert(err.response.data.message)
+      console.log('error',err);
+      // alert(err.response.data.message)
       setLoading(false);
     })
   }

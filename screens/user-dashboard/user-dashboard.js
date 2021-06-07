@@ -1,7 +1,8 @@
 import React from 'react';
+import {BackHandler , Alert} from 'react-native';
 import { Container, Header, Content, Tab, Tabs, TabHeading, Icon, Text } from 'native-base';
-import Materials from '../../components/materials';
-import MyRequests from '../../components/my-requests';
+// import Materials from '../../components/materials';
+// import MyRequests from '../../components/my-requests';
 import Home from '../../components/home'
 
 const UserDashboard = ({page}) => {
