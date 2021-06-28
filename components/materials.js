@@ -7,13 +7,12 @@ import {
     Text,
     TouchableOpacity, ImageBackground,
 } from 'react-native';
-import { H3, Icon, Card, CardItem, Body, Container, Spinner, Thumbnail, Form, Item, Input, Label, Textarea, Content } from 'native-base';
+import { H3,  Card, CardItem, Spinner, Thumbnail,  Item, Input, Label, Textarea } from 'native-base';
 import axios from 'axios'
 import url from "../core/index";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-
-
+import {Icon} from 'react-native-elements';
 
 
 export default function Materials() {
@@ -116,8 +115,9 @@ export default function Materials() {
         <ScrollView>
             <View >
                 {loading ? <Spinner /> :
+              
                     <Card style={{height:'100%'}}>
-                        <CardItem bordered style={{ marginBottom:10 , backgroundColor: '#00868B' , justifyContent:'center' }} >
+                        <CardItem bordered style={{ marginBottom:10 , backgroundColor: 'white' , justifyContent:'center' }} >
                        <H3 style={{color:'white' , alignSelf:'center' }}>Place Request</H3>
                         </CardItem>
                         <View style={styles.container}>
@@ -207,7 +207,7 @@ export default function Materials() {
 
                                             />
                                             <TouchableOpacity style={styles.closeBtn} onPress={() => setModalVisible(!modalVisible)}>
-                                                <Text style={{ color: 'white', fontSize: 18 }}>Close</Text >
+                                                <Icon name='close' color='black'/>
                                             </TouchableOpacity>
                                             <Pressable
                                                 style={[styles.button, styles.buttonClose]}
@@ -252,7 +252,7 @@ const styles = new StyleSheet.create({
         },
         shadowOpacity: 0.20,
         shadowRadius: 5.46,
-
+        borderRadius:18,
         elevation: 9,
 
 
@@ -261,7 +261,6 @@ const styles = new StyleSheet.create({
     closeBtn: {
         width: 20,
         height: 20,
-        backgroundColor: 'black',
         position: 'absolute',
         right: -30,
         top: -30,
