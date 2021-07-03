@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, View } from "react-native"
-import { Container, Header, Content, Card, CardItem, Text, Body, Button, Left, Right } from "native-base";
+import { Container, Header, Content, Card, CardItem, Text, Body, Button} from "native-base";
 import { Spinner } from "native-base"
 import url from "../core/index";
 import axios from 'axios';
