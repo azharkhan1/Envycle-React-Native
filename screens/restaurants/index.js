@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Input, Spinner, Container, Header, Content, Card, CardItem, Text, Body, Button, Item, Label } from 'native-base';
+import { Input, Spinner, Container, Header, Content, Card, CardItem, Text, Body, Button, Item, Label, H1 } from 'native-base';
 import { View } from 'react-native';
 import axios from 'axios'
 import url from '../../core/index';
@@ -24,7 +24,7 @@ export default function Restaurants() {
         }).then((response) => {
             setRestaurants(response.data.restaurants);
             setLoading(false);
-            console.log('restaurants',response.data.restaurants);
+            console.log('restaurants', response.data.restaurants);
         }).catch((err) => {
             console.log('error occured');
             setLoading(true);
@@ -45,7 +45,7 @@ export default function Restaurants() {
             globalStateUpdate(prev => ({
                 ...prev, loginStatus: true, user: {
                     ...globalState.user,
-                    points: restaurants[index].points - globalState.user.points,
+                    points: globalState.user.points - restaurants[index].points,
                 }, role: response.data.user.role,
             }));
             setPasscode('');
@@ -53,6 +53,7 @@ export default function Restaurants() {
             alert(response.data.message);
         }).catch((err) => {
             console.log('response is=> ', err);
+            alert('wrong passcode')
 
         })
     }
@@ -68,9 +69,9 @@ export default function Restaurants() {
                                 <CardItem bordered>
                                     <Body>
                                         <CardItem bordered>
-                                            <Text>
+                                            <H1>
                                                 {value.name}
-                                            </Text>
+                                            </H1>
                                         </CardItem>
                                         <CardItem bordered>
                                             <Text>

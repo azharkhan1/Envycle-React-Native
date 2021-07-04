@@ -14,8 +14,8 @@ import URL from '../../core/index';
 import axios from "axios";
 import styles from '../../assets/global-styles/globalStyles';
 import Button from '../../components/Button';
-
 import { useGlobalStateUpdate } from "../../context/context";
+import { KeyboardAvoidingView } from 'react-native';
 
 export default function Signin({ navigation }) {
 
@@ -55,73 +55,77 @@ export default function Signin({ navigation }) {
 
   return (
 
+    <KeyboardAvoidingView
+      behavior='padding'
+    >
 
-    <View style={styles.wholeScreen}>
-      <View style={{ flex: 3, alignSelf: 'center' }}>
-        <Image style={{ width: 300, height: 250 }} source={require('../../assets/images/envycle-demo.png')}
-        >
-        </Image>
-      </View>
-      <View style={{ flex: 6 }}>
-        <View style={styles.modalCard}>
-          <Formik
-            validationSchema={loginSchema}
-            initialValues={{ email: '', password: '' }}
-            onSubmit={values => signInNow(values)}
+      <View style={styles.wholeScreen}>
+        <View style={{ flex: 3, alignSelf: 'center' }}>
+          <Image style={{ width: 300, height: 250 }} source={require('../../assets/images/envycle-demo.png')}
           >
-            {({ handleChange, setFieldTouched, touched, handleSubmit, values, errors, isValid }) => (
-              <View>
-                {touched.email &&
-                  <Label style={{ fontSize: 10, color: 'red' }}>{errors.email}</Label>
-                }
-                <Item stackedLabel last>
-                  <Input
-                    onChangeText={handleChange('email')}
-                    onBlur={() => setFieldTouched('email')}
-                    value={values.email}
-                    placeholder={'Enter your email'}
-                  />
-                </Item>
-                <Item stackedLabel last
-                >
-                  {touched.password &&
-                    <Label style={{ fontSize: 10, color: 'red' }}>{errors.password}</Label>
+          </Image>
+        </View>
+        <View style={{ flex: 6 }}>
+          <View style={styles.modalCard}>
+            <Formik
+              validationSchema={loginSchema}
+              initialValues={{ email: '', password: '' }}
+              onSubmit={values => signInNow(values)}
+            >
+              {({ handleChange, setFieldTouched, touched, handleSubmit, values, errors, isValid }) => (
+                <View>
+                  {touched.email &&
+                    <Label style={{ fontSize: 10, color: 'red' }}>{errors.email}</Label>
                   }
-                  <Input
-                    onChangeText={handleChange('password')}
-                    onBlur={() => setFieldTouched('password')}
-                    value={values.password}
-                    secureTextEntry={true}
-                    placeholder={'Enter your password'}
-                  />
-                </Item>
-                {loading ? <Spinner />
-                  :
-                  <Button
-
-                    onPress={handleSubmit}
-                    title={'Login'}
+                  <Item stackedLabel last>
+                    <Input
+                      onChangeText={handleChange('email')}
+                      onBlur={() => setFieldTouched('email')}
+                      value={values.email}
+                      placeholder={'Enter your email'}
+                    />
+                  </Item>
+                  <Item stackedLabel last
                   >
+                    {touched.password &&
+                      <Label style={{ fontSize: 10, color: 'red' }}>{errors.password}</Label>
+                    }
+                    <Input
+                      onChangeText={handleChange('password')}
+                      onBlur={() => setFieldTouched('password')}
+                      value={values.password}
+                      secureTextEntry={true}
+                      placeholder={'Enter your password'}
+                    />
+                  </Item>
+                  {loading ? <Spinner />
+                    :
+                    <Button
 
-                  </Button>
+                      onPress={handleSubmit}
+                      title={'Login'}
+                    >
 
-                }
-                <View style={{ marginTop: 20, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                    </Button>
 
-                  <TouchableWithoutFeedback
-                    onPress={() => navigation.navigate('ForgotPassword')}
-                    style={{ marginTop: 20, alignSelf: 'center', fontSize: 8 }}>
-                    <Text>
-                      Forgot Password?
-                    </Text>
-                  </TouchableWithoutFeedback>
+                  }
+                  <View style={{ marginTop: 20, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+
+                    <TouchableWithoutFeedback
+                      onPress={() => navigation.navigate('ForgotPassword')}
+                      style={{ marginTop: 20, alignSelf: 'center', fontSize: 8 }}>
+                      <Text>
+                        Forgot Password?
+                      </Text>
+                    </TouchableWithoutFeedback>
+                  </View>
                 </View>
-              </View>
-            )}
-          </Formik>
+              )}
+            </Formik>
+          </View>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

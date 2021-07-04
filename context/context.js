@@ -28,9 +28,9 @@ export function GlobalStateProvider({ children }) {
         axios({
             method: 'get',
             url: url + "/profile",
-            onUploadProgress: (progress)=> console.log(progress.loaded) ,
 
         }).then((response) => {
+            console.log(response.data)
             setData(prev => ({ ...prev, loginStatus: true, user: response.data.profile, role: response.data.profile.role }));
         }, (error) => {
             // console.log('error',error);

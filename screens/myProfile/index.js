@@ -196,6 +196,9 @@ export default function MyProfile({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    paddingTop: 20,
+  },
   screen: {
     backgroundColor: 'gray',
   },
