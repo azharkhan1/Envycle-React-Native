@@ -1,25 +1,22 @@
-import React, { useRef, useState, createRef, } from 'react';
+import React, {  useState, } from 'react';
 
 import {
-    StyleSheet,
+
     View,
     Text,
-    TouchableOpacity,
-    TextInput,
-    Alert, Pressable,
+  
+ Pressable,
     Image,
 } from 'react-native';
-import { NativeRouter, Route, Link  , useHistory} from "react-router-native";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { Container, Spinner, Thumbnail, Form, Item, Input, Label, Textarea, Content } from 'native-base';
+import {  Spinner,   Item, Input, Label, } from 'native-base';
 import styles from '../../assets/global-styles/globalStyles';
 import URL from '../../core/index';
 import axios from "axios";
+import Button from '../../components/Button';
 
-
-export default function ForgotPassword() {
-    const history = useHistory();
+export default function ForgotPassword({navigation}) {
     const [loading, setLoading] = useState(false);
     const [email, setForgotEmail] = useState();
     const [forgot, setForgot] = useState(false);
@@ -67,7 +64,8 @@ export default function ForgotPassword() {
             },
         }).then((response) => {
             alert('Password changed succesfully');
-            history.push("/");
+            navigation.navigate('Login')
+
         }, (error) => {
             alert("wrong otp or error");
         })
@@ -118,22 +116,16 @@ export default function ForgotPassword() {
                                     </Item>
                                     {loading ? <Spinner />
                                         :
-                                        <Pressable
-
-                                            style={[styles.button, styles.buttonClose, { marginTop: 20 }]}
+                                        <Button
+                                            title={'Proceed'}
                                             onPress={handleSubmit}
                                         >
-                                            <Text style={styles.textStyle}>Proceed </Text>
-                                        </Pressable>
+                                            
+                                        </Button>
 
                                     }
 
-                                    <View style={{ marginTop: 20 }}>
-                                        <Link to="/">
-                                            <Text>
-                                                Go Back
-       </Text></Link>
-                                    </View>
+                    
 
                                 </View>
                             )}
@@ -160,22 +152,16 @@ export default function ForgotPassword() {
                                     </Item>
                                     {loading ? <Spinner />
                                         :
-                                        <Pressable
-
-                                            style={[styles.button, styles.buttonClose, { marginTop: 20 }]}
+                                        <Button
+                                            title={'Proceed'}
                                             onPress={handleSubmit}
-                                        >
-                                            <Text style={styles.textStyle}>Proceed </Text>
-                                        </Pressable>
+                                        />
+                                           
+                                   
 
                                     }
 
-                                    <View style={{ marginTop: 20 }}>
-                                        <Link to="/">
-                                            <Text>
-                                                Go Back
-                    </Text></Link>
-                                    </View>
+                
 
                                 </View>
                             )}

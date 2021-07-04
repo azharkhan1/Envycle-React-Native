@@ -1,15 +1,15 @@
 import * as React from "react";
-import Navigation from "./config/navigation";
-import {GlobalStateProvider} from "./context/context.js";
-
-
-
-
-
-
+import { GlobalStateProvider } from "./context/context.js";
+import MainNavigation from "./config/MainNavigation.js";
+import MyProfile from "./screens/myProfile/index.js";
 function App() {
+
   return (
-    <GlobalStateProvider><Navigation /></GlobalStateProvider>
+    <GlobalStateProvider>
+    
+        <MainNavigation />
+      
+    </GlobalStateProvider>
   );
 }
 

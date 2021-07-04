@@ -25,37 +25,47 @@ import AdminDashboard from '../screens/admin-dashboard';
 import myRequests from '../components/my-requests';
 import Materials from '../components/materials';
 
-export default function Navigation() {
+
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import WelcomeScreen from '../screens/WelcomeScreen';
+
+
+const Tab = createBottomTabNavigator();
+
+
+
+export default function AppNavigator(){
+  return(
+    <Tab.Navigator>
+      <Tab.Screen component={WelcomeScreen}/>
+    </Tab.Navigator>
+  )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export function ReactNavigation() {
   const globalState = useGlobalState();
   return (
     <NativeRouter>
       <BackButton>
-
-      {/* <Text>
-        {JSON.stringify(globalState)}
-      </Text> */}
-      {globalState.loginStatus === false ?
-        <>
-          <Route exact path="/" component={Signin} />
-          <Route exact path="/forgot-password" component={ForgotPassword} />
-          <Route path="/signup" component={Signup} />
-        </>
-        : null}
+     
       {(globalState.loginStatus === true && globalState.user.role === 'user')
         ?
         <>
-          <Route
-            path='/'
-            exact
-            component={UserDashboard}
-            >
-          </Route>
-          <Route
-            path='/my-profile'
-            component={MyProfile}
-            />
-            
-      
+        
           <Route
             path='/restaurants'
             component={Restaurants}
@@ -68,7 +78,6 @@ export default function Navigation() {
             path='/place-request'
             component={Materials}
             />
-        <AppFooter />
         
         </>
 

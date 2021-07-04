@@ -7,12 +7,14 @@ import {
     Text,
     TouchableOpacity, ImageBackground,
 } from 'react-native';
-import { H3,  Card, CardItem, Spinner, Thumbnail,  Item, Input, Label, Textarea } from 'native-base';
+import { H3, Card, CardItem, Spinner, Thumbnail, Item, Input, Label, Textarea } from 'native-base';
 import axios from 'axios'
 import url from "../core/index";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import {Icon} from 'react-native-elements';
+import { Icon } from 'react-native-elements';
+import Button from '../components/Button';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 
 export default function Materials() {
@@ -112,119 +114,112 @@ export default function Materials() {
     }
 
     return (
-        <ScrollView>
-            <View >
-                {loading ? <Spinner /> :
-              
-                    <Card style={{height:'100%'}}>
-                        <CardItem bordered style={{ marginBottom:10 , backgroundColor: 'white' , justifyContent:'center' }} >
-                       <H3 style={{color:'white' , alignSelf:'center' }}>Place Request</H3>
-                        </CardItem>
-                        <View style={styles.container}>
-                            {materials.map(({ name, quantity, url }, index) => {
-                                return <View key={index} style={styles.cardContainer}>
-                                    <Thumbnail source={{  uri: url }}></Thumbnail>
-                                    <Text>{name}</Text>
-                                    <Text style={styles.input}>{quantity}</Text>
-                                    <View style={{ display: 'flex', flexDirection: 'row' }}>
-                                        <TouchableOpacity style={styles.myButton} onPress={() => addQty(index)}>
-                                            <ImageBackground
-                                                source={require('../assets/images/add.png')}
-                                                style={{ height: 18, width: 18, }}
-                                            >
-                                                <Text style={{ color: 'white', fontSize: 18 }}></Text >
-                                            </ImageBackground>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity style={styles.myButton} onPress={quantity > 0 ? () => removeQty(index) : () => { return }}>
-                                            <ImageBackground
-                                                source={require('../assets/images/minus.png')}
-                                                style={{ height: 18, width: 18, position: 'relative', top: 8 }}
-                                            >
-                                            </ImageBackground>
-                                        </TouchableOpacity>
-                                    </View>
-                                </View>
-                            })}
-                        </View>
-                        {loading ? null :
-                        <Pressable
-                            style={[styles.button , styles.buttonClose]}
-                            onPress={total >= 20 ? () => setModalVisible(true) : () => { return }}
-                        >
-                            <Text style={styles.textStyle}>{total >= 20 ? 'Checkout' : 'Minimum 20kg to place request'}</Text>
-                        </Pressable>
-                    }
-                    </Card>
-             
-             }
-                <View style={styles.centeredView}>
-                    <Modal
+    
+    
+                <View >
+                    {loading ? <Spinner /> :
 
-                        animationType="slide"
-                        transparent={true}
-                        visible={modalVisible}
-                        onRequestClose={() => {
-                            Alert.alert("Modal has been closed.");
-                            setModalVisible(!modalVisible);
-                        }}
-                    >
-                        <View style={styles.wholeScreen}>
-                            <View style={styles.modalCard}>
-                                <Formik
-                                    validationSchema={placeRequestSchema}
-                                    initialValues={{ address: '', remarks: '', phoneNo: '' }}
-                                    onSubmit={values => placeRequest(values)}
-                                >
-                                    {({ handleChange, handleBlur, handleSubmit, values, errors, isValid }) => (
-                                        <View>
-                                            <Item stackedLabel>
-                                                <Label>Address</Label>
-                                                {errors.address &&
-                                                    <Text style={{ fontSize: 10, color: 'red' }}>{errors.address}</Text>
-                                                }
-                                                <Input
-                                                    onChangeText={handleChange('address')}
-                                                    onBlur={handleBlur('address')}
-                                                    value={values.address}
-                                                />
-                                            </Item>
-                                            <Item stackedLabel last>
-                                                <Label>Phone Number</Label>
-                                                {errors.phoneNo &&
-                                                    <Text style={{ fontSize: 10, color: 'red' }}>{errors.phoneNo}</Text>
-                                                }
-                                                <Input
-                                                    onChangeText={handleChange('phoneNo')}
-                                                    onBlur={handleBlur('phoneNo')}
-                                                    value={values.phoneNo}
-                                                />
-                                            </Item>
-
-                                            <Textarea rowSpan={4} style={{ width: '100%', marginBottom: 10 }} bordered placeholder=" Enter your message"
-                                                onChangeText={handleChange('remarks')}
-                                                onBlur={handleBlur('remarks')}
-                                                value={values.remarks}
-
-                                            />
-                                            <TouchableOpacity style={styles.closeBtn} onPress={() => setModalVisible(!modalVisible)}>
-                                                <Icon name='close' color='black'/>
+                        <Card >
+                            <CardItem bordered style={{ marginBottom: 10, backgroundColor: 'white', justifyContent: 'center' }} >
+                                <H3 style={{ color: 'white', alignSelf: 'center' }}>Place Request</H3>
+                            </CardItem>
+                            <View style={styles.container}>
+                                {materials.map(({ name, quantity, url }, index) => {
+                                    return <View key={index} style={styles.cardContainer}>
+                                        <Thumbnail source={{ uri: url }}></Thumbnail>
+                                        <Text style={styles.text}>{name}</Text>
+                                        <Text style={styles.input}>{quantity}</Text>
+                                        <View style={{ display: 'flex', flexDirection: 'row' }}>
+                                            <TouchableOpacity style={styles.myButton} onPress={() => addQty(index)}>
+                                                <MaterialCommunityIcons name='plus-circle' color='tomato' size={40} />
                                             </TouchableOpacity>
-                                            <Pressable
-                                                style={[styles.button, styles.buttonClose]}
-                                                onPress={handleSubmit}
-                                            >
-                                                <Text style={styles.textStyle}>Place Request</Text>
-                                            </Pressable>
+                                            <TouchableOpacity style={styles.myButton} onPress={quantity > 0 ? () => removeQty(index) : () => { return }}>
+                                                <MaterialCommunityIcons name='minus-circle' color='tomato' size={40} />
+                                            </TouchableOpacity>
                                         </View>
-                                    )}
-
-                                </Formik>
+                                    </View>
+                                })}
                             </View>
-                        </View>
-                    </Modal>
+                            {loading ? null :
+                                <Button
+                                    onPress={total >= 20 ? () => setModalVisible(true) : () => { return }}
+                                    title={total >= 20 ? 'Checkout' : 'Minimum 20kg to place request'}
+                                />
+
+                            }
+                        </Card>
+
+                    }
+                    <View style={styles.centeredView}>
+                        <Modal
+
+                            animationType="slide"
+                            transparent={true}
+                            visible={modalVisible}
+                            onRequestClose={() => {
+                                Alert.alert("Modal has been closed.");
+                                setModalVisible(!modalVisible);
+                            }}
+                        >
+                            <View style={styles.wholeScreen}>
+                                <View style={styles.modalCard}>
+                                    <Formik
+                                        validationSchema={placeRequestSchema}
+                                        initialValues={{ address: '', remarks: '', phoneNo: '' }}
+                                        onSubmit={values => placeRequest(values)}
+                                    >
+                                        {({ handleChange, handleBlur, handleSubmit, values, errors, isValid }) => (
+                                            <View>
+                                                <Item stackedLabel>
+                                                    <Label>Address</Label>
+                                                    
+                                                    <Input
+                                                        onChangeText={handleChange('address')}
+                                                        onBlur={handleBlur('address')}
+                                                        value={values.address}
+                                                    />
+                                                    {errors.address &&
+                                                        <Text style={{ fontSize: 10, color: 'red' }}>{errors.address}</Text>
+                                                    }
+                                                </Item>
+                                                <Item stackedLabel last>
+                                                    <Label>Phone Number</Label>
+                                                 
+                                                    <Input
+                                                        onChangeText={handleChange('phoneNo')}
+                                                        onBlur={handleBlur('phoneNo')}
+                                                        value={values.phoneNo}
+                                                    />
+                                                       {errors.phoneNo &&
+                                                        <Text style={{ fontSize: 10, color: 'red' }}>{errors.phoneNo}</Text>
+                                                    }
+                                                </Item>
+
+                                                <Textarea rowSpan={4} style={{ width: '100%', marginBottom: 10 }} bordered placeholder=" Enter your message"
+                                                    onChangeText={handleChange('remarks')}
+                                                    onBlur={handleBlur('remarks')}
+                                                    value={values.remarks}
+
+                                                />
+                                                <TouchableOpacity style={styles.closeBtn} onPress={() => setModalVisible(!modalVisible)}>
+                                                    <Icon name='close' color='black' />
+                                                </TouchableOpacity>
+                                                <Pressable
+                                                    style={[styles.button, styles.buttonClose]}
+                                                    onPress={handleSubmit}
+                                                >
+                                                    <Text style={styles.textStyle}>Place Request</Text>
+                                                </Pressable>
+                                            </View>
+                                        )}
+
+                                    </Formik>
+                                </View>
+                            </View>
+                        </Modal>
+                    </View>
                 </View>
-            </View>
-        </ScrollView>
+    
     )
 }
 
@@ -237,24 +232,20 @@ const styles = new StyleSheet.create({
         flexWrap: 'wrap',
         flexShrink: 1,
         alignItems: 'center',
+        padding: 20,
     },
     cardContainer: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-around',
         flexShrink: 1,
-        padding:10,
-        shadowColor: "#000",
+        padding: 10,
         alignSelf: 'center',
-        shadowOffset: {
-            width: 0,
-            height: 4,
-        },
-        shadowOpacity: 0.20,
-        shadowRadius: 5.46,
-        borderRadius:18,
-        elevation: 9,
-
+        borderRadius: 18,
+        borderWidth: 2,
+        borderColor: 'black',
+        margin: 5,
+        padding:20,
 
     },
 
@@ -291,13 +282,11 @@ const styles = new StyleSheet.create({
         textAlign: 'center',
         borderRadius: 3,
         color: 'black',
+        marginTop:5,
     },
     myButton: {
         width: 55,
-        padding: 5,
-        marginBottom:10,
-        backgroundColor: "#2196F3",
-        color: "white",
+    
         textAlign: "center",
         fontSize: 16,
         marginTop: 20,
@@ -354,5 +343,10 @@ const styles = new StyleSheet.create({
     modalText: {
         marginBottom: 15,
         textAlign: "center"
+    },
+    text:{
+        fontSize:18,
+        fontWeight:'bold',
+        marginTop:5,
     }
 })

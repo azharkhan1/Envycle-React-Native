@@ -22,22 +22,21 @@ export function GlobalStateProvider({ children }) {
         user: null,
         loginStatus: false,
         role: null,
-        cart: [],
     })
 
     useEffect(() => {
-
         axios({
             method: 'get',
             url: url + "/profile",
+            onUploadProgress: (progress)=> console.log(progress.loaded) ,
+
         }).then((response) => {
             setData(prev => ({ ...prev, loginStatus: true, user: response.data.profile, role: response.data.profile.role }));
-
         }, (error) => {
             // console.log('error',error);
             setData(prev => ({ ...prev, loginStatus: false }))
         });
-    }, [data]);
+    }, []);
 
 
 

@@ -54,7 +54,6 @@ export default function myRequests() {
     return (
 
         <Container>
-            <Header/>
             {loading ? <Spinner /> :
                 <Container>
                     <SafeAreaView>

@@ -1,24 +1,23 @@
 import React, { useRef, useState, createRef, } from 'react';
 
 import {
-  StyleSheet,
+  TouchableWithoutFeedback,
   View,
   Text,
   Pressable,
   Image
 } from 'react-native';
-import { Link } from "react-router-native";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Spinner, Item, Input, Label } from 'native-base';
 import URL from '../../core/index';
 import axios from "axios";
 import styles from '../../assets/global-styles/globalStyles';
-
+import Button from '../../components/Button';
 
 import { useGlobalStateUpdate } from "../../context/context";
 
-export default function Signin() {
+export default function Signin({ navigation }) {
 
   const [loading, setLoading] = useState(false);
   const globalStateUpdate = useGlobalStateUpdate();
@@ -38,7 +37,7 @@ export default function Signin() {
       data: {
         userEmail: email.toLowerCase(),
         userPassword: password
-      }
+      },
     }).then((response) => {
       globalStateUpdate(prev => ({
         ...prev, loginStatus: true, user: {
@@ -47,9 +46,8 @@ export default function Signin() {
           points: response.data.user.points,
         }, role: response.data.user.role,
       }));
-      
     }).catch((err) => {
-      console.log('error',err);
+      console.log('error', err);
       // alert(err.response.data.message)
       setLoading(false);
     })
@@ -59,73 +57,70 @@ export default function Signin() {
 
 
     <View style={styles.wholeScreen}>
-      <View style={{  flex:3 , alignSelf:'center' }}>
-        <Image style={{width:300 , height:250 }}source={require('../../assets/images/envycle-demo.png')}
+      <View style={{ flex: 3, alignSelf: 'center' }}>
+        <Image style={{ width: 300, height: 250 }} source={require('../../assets/images/envycle-demo.png')}
         >
         </Image>
       </View>
-    <View style={{flex:6}}>
-      <View style={styles.modalCard}>
-        <Formik
-          validationSchema={loginSchema}
-          initialValues={{ email: '', password: '' }}
-          onSubmit={values => signInNow(values)}
-        >
-          {({ handleChange, handleBlur, handleSubmit, values, errors, isValid }) => (
-            <View>
-              {errors.email &&
-                <Label style={{ fontSize: 10, color: 'red' }}>{errors.email}</Label>
-              }
-              <Item stackedLabel last>
-                <Input
-                  onChangeText={handleChange('email')}
-                  onBlur={handleBlur('email')}
-                  value={values.email}
-                  placeholder={'Enter your email'}
-                />
-              </Item>
-              <Item stackedLabel last
-              >
-                {errors.password &&
-                  <Label style={{ fontSize: 10, color: 'red' }}>{errors.password}</Label>
+      <View style={{ flex: 6 }}>
+        <View style={styles.modalCard}>
+          <Formik
+            validationSchema={loginSchema}
+            initialValues={{ email: '', password: '' }}
+            onSubmit={values => signInNow(values)}
+          >
+            {({ handleChange, setFieldTouched, touched, handleSubmit, values, errors, isValid }) => (
+              <View>
+                {touched.email &&
+                  <Label style={{ fontSize: 10, color: 'red' }}>{errors.email}</Label>
                 }
-                <Input
-                  onChangeText={handleChange('password')}
-                  onBlur={handleBlur('password')}
-                  value={values.password}
-                  secureTextEntry={true}
-                  placeholder={'Enter your password'}
-                />
-              </Item>
-              {loading ? <Spinner />
-                :
-                <Pressable
-                  style={[styles.button, styles.buttonClose, { marginTop: 20 }]}
-                  onPress={handleSubmit}
+                <Item stackedLabel last>
+                  <Input
+                    onChangeText={handleChange('email')}
+                    onBlur={() => setFieldTouched('email')}
+                    value={values.email}
+                    placeholder={'Enter your email'}
+                  />
+                </Item>
+                <Item stackedLabel last
                 >
-                  <Text style={styles.textStyle}>Login</Text>
-                </Pressable>
+                  {touched.password &&
+                    <Label style={{ fontSize: 10, color: 'red' }}>{errors.password}</Label>
+                  }
+                  <Input
+                    onChangeText={handleChange('password')}
+                    onBlur={() => setFieldTouched('password')}
+                    value={values.password}
+                    secureTextEntry={true}
+                    placeholder={'Enter your password'}
+                  />
+                </Item>
+                {loading ? <Spinner />
+                  :
+                  <Button
 
-              }
-  <View style={{display:'flex' , flexDirection:'row' , justifyContent:'space-between'}}>
-              <View style={{ marginTop: 20 , alignSelf:'center' , fontSize:8 }}>
-                <Link to="/signup">
-                  <Text>
-                    Create an account
-                    </Text></Link>
+                    onPress={handleSubmit}
+                    title={'Login'}
+                  >
+
+                  </Button>
+
+                }
+                <View style={{ marginTop: 20, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+
+                  <TouchableWithoutFeedback
+                    onPress={() => navigation.navigate('ForgotPassword')}
+                    style={{ marginTop: 20, alignSelf: 'center', fontSize: 8 }}>
+                    <Text>
+                      Forgot Password?
+                    </Text>
+                  </TouchableWithoutFeedback>
+                </View>
               </View>
-              <View style={{ marginTop: 20 , alignSelf:'center' , fontSize:8 }}>
-                <Link to="/forgot-password">
-                  <Text>
-                    Forgot Password?
-                    </Text></Link>
-              </View>
-            </View>
-  </View>
-          )}
-        </Formik>
+            )}
+          </Formik>
+        </View>
       </View>
-    </View>
     </View>
   );
 }
