@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import url from "../core";
-
+import socket from '../config/socket';
 // Allowing credentials true for axios 
 axios.defaults.withCredentials = true;
 
@@ -17,7 +17,11 @@ export const useGlobalStateUpdate = () => useContext(GlobalStateUpdateContext)
 
 // Making Global State component
 export function GlobalStateProvider({ children }) {
-
+    const [points, setPoints] = useState(true)
+    socket.on('points', (data) => {
+        setPoints(!points)
+        console.log(data);
+    })
     const [data, setData] = useState({
         user: null,
         loginStatus: false,
@@ -36,7 +40,7 @@ export function GlobalStateProvider({ children }) {
             // console.log('error',error);
             setData(prev => ({ ...prev, loginStatus: false }))
         });
-    }, []);
+    }, [points]);
 
 
 

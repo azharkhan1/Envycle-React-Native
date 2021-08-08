@@ -38,7 +38,7 @@ export default function myRequests() {
                 id: id,
             },
         }).then((response) => {
-            Alert.alert('Notification', response.data.message);
+            Alert.alert('Notification', 'Request cancelled successfully!');
             handleChange(!change);
         }).catch((error) => {
             alert('server error');
