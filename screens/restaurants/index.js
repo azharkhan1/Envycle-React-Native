@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Input, Spinner, Container, Header, Content, Card, CardItem, Text, Body, Button, Item, Label, H1 } from 'native-base';
-import { View } from 'react-native';
+import { Alert } from 'react-native';
 import axios from 'axios'
 import url from '../../core/index';
 import { useGlobalState, useGlobalStateUpdate } from '../../context/context';
@@ -50,10 +50,9 @@ export default function Restaurants() {
             }));
             setPasscode('');
             setChange(!change);
-            alert(response.data.message);
+            Alert.alert('Notification', response.data.message);
         }).catch((err) => {
-            console.log('response is=> ', err);
-            alert('wrong passcode')
+            Alert.alert('Notification', 'wrong passcode')
 
         })
     }

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, View } from "react-native"
-import { Container, Header, Content, Card, CardItem, Text, Body, Button} from "native-base";
+import { Container, Header, Content, Card, CardItem, Text, Body, Button } from "native-base";
 import { Spinner } from "native-base"
 import url from "../core/index";
 import axios from 'axios';
 import { RefreshControl } from 'react-native';
 import { SafeAreaView } from 'react-native';
+import { Alert } from 'react-native';
 
 
 const wait = (timeout) => {
@@ -26,7 +27,7 @@ export default function myRequests() {
             setMyRequests(userRequests);
             setLoading(false)
         }).catch((err) => {
-            alert('an error occoured');
+            Alert.alert('Notification', 'An error occured');
         })
     }, [change])
     const deleteOrder = (id) => {
@@ -37,7 +38,7 @@ export default function myRequests() {
                 id: id,
             },
         }).then((response) => {
-            alert(response.data.message);
+            Alert.alert('Notification', response.data.message);
             handleChange(!change);
         }).catch((error) => {
             alert('server error');
@@ -70,8 +71,8 @@ export default function myRequests() {
                                 {myRequests.map(({ phoneNo, cart, address, status, _id }, index) => {
                                     return <Card key={index}>
 
-                                        <CardItem bordered style={{ backgroundColor: '#00868B'}} >
-                                            <Text style={{color:'white'}}>Status: <Text style={{color:'white'}}>{status}</Text></Text>
+                                        <CardItem bordered style={{ backgroundColor: '#00868B' }} >
+                                            <Text style={{ color: 'white' }}>Status: <Text style={{ color: 'white' }}>{status}</Text></Text>
                                         </CardItem>
                                         <CardItem bordered>
                                             {cart.map((value, index) => {
@@ -79,7 +80,7 @@ export default function myRequests() {
                                                     <CardItem bordered>
                                                         <Text>
                                                             Material: {value.name ? value.name : value.product} x {value.quantity} kg
-                                                </Text>
+                                                        </Text>
                                                     </CardItem>
                                                 </Body>
                                             })}

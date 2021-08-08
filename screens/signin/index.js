@@ -16,6 +16,7 @@ import styles from '../../assets/global-styles/globalStyles';
 import Button from '../../components/Button';
 import { useGlobalStateUpdate } from "../../context/context";
 import { KeyboardAvoidingView } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 export default function Signin({ navigation }) {
 
@@ -56,7 +57,8 @@ export default function Signin({ navigation }) {
   return (
 
     <KeyboardAvoidingView
-      behavior='padding'
+      behavior='position'
+      keyboardVerticalOffset={-80}
     >
 
       <View style={styles.wholeScreen}>
@@ -65,7 +67,7 @@ export default function Signin({ navigation }) {
           >
           </Image>
         </View>
-        <View style={{ flex: 6 }}>
+        <View style={{ flex: 9 }}>
           <View style={styles.modalCard}>
             <Formik
               validationSchema={loginSchema}
@@ -109,17 +111,17 @@ export default function Signin({ navigation }) {
                     </Button>
 
                   }
-                  <View style={{ marginTop: 20, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
 
-                    <TouchableWithoutFeedback
-                      onPress={() => navigation.navigate('ForgotPassword')}
-                      style={{ marginTop: 20, alignSelf: 'center', fontSize: 8 }}>
-                      <Text>
-                        Forgot Password?
-                      </Text>
-                    </TouchableWithoutFeedback>
-                  </View>
+
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('ForgotPassword')}
+                    style={{ marginTop: 20, alignSelf: 'flex-start', fontSize: 8 }}>
+                    <Text>
+                      Forgot Password?
+                    </Text>
+                  </TouchableOpacity>
                 </View>
+
               )}
             </Formik>
           </View>

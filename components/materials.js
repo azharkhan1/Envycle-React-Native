@@ -105,14 +105,14 @@ export default function Materials() {
             },
 
         }).then((response) => {
-            alert('your request has been palced');
+            Alert.alert('Notification', 'Your request has been placed!')
             setTotal(0)
             setModalVisible(!modalVisible);
             setChange(!change);
             setSpinner(false)
         }, (error) => {
             // console.log("an error occured");
-            alert('An error occured');
+            Alert.alert('An error occured, Please try again');
             setSpinner(false)
         })
     }

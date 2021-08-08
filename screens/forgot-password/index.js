@@ -1,22 +1,22 @@
-import React, {  useState, } from 'react';
+import React, { useState, } from 'react';
 
 import {
 
     View,
     Text,
-  
- Pressable,
+    Alert,
+    Pressable,
     Image,
 } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import {  Spinner,   Item, Input, Label, } from 'native-base';
+import { Spinner, Item, Input, Label, } from 'native-base';
 import styles from '../../assets/global-styles/globalStyles';
 import URL from '../../core/index';
 import axios from "axios";
 import Button from '../../components/Button';
 
-export default function ForgotPassword({navigation}) {
+export default function ForgotPassword({ navigation }) {
     const [loading, setLoading] = useState(false);
     const [email, setForgotEmail] = useState();
     const [forgot, setForgot] = useState(false);
@@ -42,13 +42,12 @@ export default function ForgotPassword({navigation}) {
 
             },
         }).then((response) => {
-            alert('check your email');
+            Alert.alert('Notification', 'Check your email')
             setForgotEmail(email);
             setForgot(true);
         }, (error) => {
             setForgot(false);
-            alert(error.response.data.message)
-            console.log("an error occured");
+            Alert.alert('Notification', 'Error or email does not exist')
         })
     }
     function resetPassword({ otp, password }) {
@@ -63,11 +62,11 @@ export default function ForgotPassword({navigation}) {
                 newPassword: password,
             },
         }).then((response) => {
-            alert('Password changed succesfully');
+            Alert.alert('Notification', 'Password changed successfully!');
             navigation.navigate('Login')
 
         }, (error) => {
-            alert("wrong otp or error");
+            Alert.alert('Notification', "Wrong OTP or error");
         })
     }
 
@@ -120,12 +119,12 @@ export default function ForgotPassword({navigation}) {
                                             title={'Proceed'}
                                             onPress={handleSubmit}
                                         >
-                                            
+
                                         </Button>
 
                                     }
 
-                    
+
 
                                 </View>
                             )}
@@ -156,12 +155,12 @@ export default function ForgotPassword({navigation}) {
                                             title={'Proceed'}
                                             onPress={handleSubmit}
                                         />
-                                           
-                                   
+
+
 
                                     }
 
-                
+
 
                                 </View>
                             )}

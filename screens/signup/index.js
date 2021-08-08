@@ -55,10 +55,11 @@ export default function Signup() {
 
     return (
         <KeyboardAvoidingView
-            behavior='padding'
+            behavior='position'
+            keyboardVerticalOffset={-80}
         >
             <View style={styles.wholeScreen}>
-                <View style={{ flex: 3, alignSelf: 'center' }}>
+                <View style={{ flex: 1, alignSelf: 'center' }}>
                     <Image style={{ width: 300, height: 250 }} source={require('../../assets/images/envycle-demo.png')}
                     >
                     </Image>

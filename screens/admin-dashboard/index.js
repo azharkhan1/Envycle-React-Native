@@ -5,6 +5,7 @@ import { View } from 'react-native'
 import axios from 'axios';
 import url from '../../core/index';
 import socket from "../../config/socket";
+import { Alert } from 'react-native';
 
 export default function AdminDashboard() {
     const globalState = useGlobalState();
@@ -45,7 +46,7 @@ export default function AdminDashboard() {
                 userEmail: orders[index].userEmail
             },
         }).then((res) => {
-            alert('Request Confirmed');
+            Alert.alert('Notification', 'Request confirmed');
             setRealTime(!realTime);
         }).catch((err) => {
             console.log("error is=>", err);
@@ -61,7 +62,7 @@ export default function AdminDashboard() {
                 id: orders[index]._id,
             },
         }).then((res) => {
-            alert('Request Declined');
+            Alert.alert('Notification', 'Request Declined');
             setRealTime(!realTime);
         }).catch((err) => {
             console.log("error is=>", err);
@@ -69,11 +70,11 @@ export default function AdminDashboard() {
     }
 
     return (
-        <Container style={{backgroundColor: '#00868B',}}>
+        <Container style={{ backgroundColor: '#00868B', }}>
             <Header />
             <Content padder>
                 <CardItem header bordered>
-                    <Text>{orders>0 ? `You have ${orders.length} request` : `No request` }</Text>
+                    <Text>{orders > 0 ? `You have ${orders.length} request` : `No request`}</Text>
                 </CardItem>
                 {orders.map(({ cart, _id, phoneNo, address, userEmail, remarks }, index) => {
                     return <Card key={index}>

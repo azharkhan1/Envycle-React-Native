@@ -13,7 +13,11 @@ const Tab = createBottomTabNavigator();
 const AppNavigator = () => {
 
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: 'tomato'
+      }}
+    >
       <Tab.Screen
         name="Home"
         component={HomeNavigator}
